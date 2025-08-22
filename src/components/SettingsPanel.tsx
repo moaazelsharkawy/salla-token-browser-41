@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send } from 'lucide-react';
+import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SettingsPanel() {
@@ -98,6 +98,19 @@ export function SettingsPanel() {
             >
               <FileText size={16} />
               {i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}
+            </Button>
+          </div>
+
+          {/* ST Telegram Bot */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold">ST Telegram Bot</h3>
+            <Button
+              variant="outline"
+              className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+              onClick={() => window.open('https://t.me/pisalla_bot', '_blank')}
+            >
+              <Bot size={16} />
+              ST Telegram Bot
             </Button>
           </div>
 

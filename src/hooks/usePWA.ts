@@ -73,7 +73,7 @@ export const usePWA = () => {
     if (!deferredPrompt) {
       console.log('No deferred prompt available - opening install instructions');
       // For browsers that don't support native install, show instructions
-      alert('لتثبيت التطبيق:\n\nعلى الأندرويد: اضغط على قائمة المتصفح واختر "إضافة إلى الشاشة الرئيسية"\n\nعلى الآيفون: اضغط على زر المشاركة واختر "إضافة إلى الشاشة الرئيسية"');
+      alert('لتثبيت التطبيق:\n\nعلى الكمبيوتر: اضغط على أيقونة التثبيت في شريط العناوين أو من قائمة المتصفح\n\nعلى الأندرويد: اضغط على قائمة المتصفح واختر "إضافة إلى الشاشة الرئيسية"\n\nعلى الآيفون: اضغط على زر المشاركة واختر "إضافة إلى الشاشة الرئيسية"');
       setShowInstallPrompt(false);
       return;
     }

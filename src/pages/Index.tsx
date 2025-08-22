@@ -1,19 +1,32 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AppGrid } from '@/components/AppGrid';
 import { SettingsPanel } from '@/components/SettingsPanel';
 import { ShareButton } from '@/components/ShareButton';
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt';
+import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { usePWA } from '@/hooks/usePWA';
 
 const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
+  const [showWelcome, setShowWelcome] = useState(() => {
+    return !localStorage.getItem('salla-welcome-shown');
+  });
 
   useEffect(() => {
     // Set initial direction based on language
     document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
   }, [i18n.language]);
+
+  const handleWelcomeComplete = () => {
+    localStorage.setItem('salla-welcome-shown', 'true');
+    setShowWelcome(false);
+  };
+
+  if (showWelcome) {
+    return <WelcomeScreen onComplete={handleWelcomeComplete} />;
+  }
 
   return (
     <div className="min-h-screen bg-background overflow-hidden">
