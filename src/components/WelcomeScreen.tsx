@@ -46,15 +46,15 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
       <div className="text-center text-white max-w-md w-full animate-in fade-in duration-1000">
         {/* Logo Animation */}
         <div className="mb-8 relative">
-          <div className="w-32 h-32 mx-auto mb-6 relative">
+            <div className="w-32 h-32 mx-auto mb-6 relative">
             {/* Rotating border effect */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-secondary to-primary animate-spin" style={{ animationDuration: '3s' }} />
-            <div className="absolute inset-1 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full backdrop-blur-sm" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 animate-spin" style={{ animationDuration: '3s' }} />
+            <div className="absolute inset-1 bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 rounded-full backdrop-blur-sm" />
             <div className="relative w-full h-full p-3">
               <img 
-                src="/lovable-uploads/dc09e946-1dd1-488d-8dc1-5ae5c256887b.png" 
-                alt="Salla Network Logo"
-                className="w-full h-full object-contain drop-shadow-2xl animate-pulse"
+                src="/src/assets/salla-logo-modern.png" 
+                alt="Salla Token Logo"
+                className="w-full h-full object-contain drop-shadow-2xl"
               />
             </div>
           </div>
@@ -106,9 +106,16 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
               <p className="text-white/90 text-sm leading-relaxed mb-2">
                 محفظة آمنة وسهلة الاستخدام لشبكة سولانا، متوفرة كتطبيق موبايل وإضافة متصفح
               </p>
-              <p className="text-white/80 text-xs leading-relaxed">
+              <p className="text-white/80 text-xs leading-relaxed mb-4">
                 Secure and user-friendly Solana wallet, available as mobile app and browser extension
               </p>
+              <Button
+                onClick={() => window.open('https://phantom.com/', '_blank')}
+                size="sm"
+                className="bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-sm font-medium"
+              >
+                Download Phantom
+              </Button>
             </div>
           )}
 
