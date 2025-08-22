@@ -52,7 +52,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             <div className="absolute inset-1 bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 rounded-full backdrop-blur-sm" />
             <div className="relative w-full h-full p-3">
               <img 
-                src="/src/assets/salla-logo-modern.png" 
+                src="/lovable-uploads/9566e7f9-372e-4144-a8ec-f58a9132e6d0.png" 
                 alt="Salla Token Logo"
                 className="w-full h-full object-contain drop-shadow-2xl"
               />
