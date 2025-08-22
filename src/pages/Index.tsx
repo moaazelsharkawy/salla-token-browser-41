@@ -10,9 +10,7 @@ import { usePWA } from '@/hooks/usePWA';
 const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
-  const [showWelcome, setShowWelcome] = useState(() => {
-    return !localStorage.getItem('salla-welcome-shown');
-  });
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     // Set initial direction based on language
@@ -20,7 +18,6 @@ const Index = () => {
   }, [i18n.language]);
 
   const handleWelcomeComplete = () => {
-    localStorage.setItem('salla-welcome-shown', 'true');
     setShowWelcome(false);
   };
 

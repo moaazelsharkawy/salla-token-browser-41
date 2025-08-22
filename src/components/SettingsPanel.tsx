@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot } from 'lucide-react';
+import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SettingsPanel() {
@@ -47,6 +47,22 @@ export function SettingsPanel() {
         </SheetHeader>
         
         <div className="space-y-6 mt-8">
+          {/* Login Section */}
+          <div className="space-y-3">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <LogIn size={20} className="text-primary" />
+              {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+            </h3>
+            <Button
+              variant="outline"
+              className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+              onClick={() => window.open('https://salla-shop.com/my-account/', '_blank')}
+            >
+              <LogIn size={16} />
+              {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+            </Button>
+          </div>
+
           {/* Language Section */}
           <div className="space-y-3">
             <h3 className="text-lg font-semibold flex items-center gap-2">
