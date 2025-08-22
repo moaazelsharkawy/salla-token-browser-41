@@ -18,8 +18,8 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
       subtitleEn: 'First Arabic Cryptocurrency on Solana'
     },
     {
-      titleAr: 'Phantom Wallet',
-      titleEn: 'Phantom Wallet',
+      titleAr: '',
+      titleEn: '',
       subtitleAr: '',
       subtitleEn: ''
     }
@@ -101,7 +101,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Wallet className="w-8 h-8 text-white" />
-                <span className="text-xl font-semibold">Phantom Wallet</span>
+                <span className="text-xl font-semibold">phantom wallet recommendation</span>
               </div>
               <p className="text-white/90 text-sm leading-relaxed mb-2">
                 محفظة آمنة وسهلة الاستخدام لشبكة سولانا، متوفرة كتطبيق موبايل وإضافة متصفح
