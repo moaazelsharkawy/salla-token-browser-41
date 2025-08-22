@@ -18,10 +18,10 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
       subtitleEn: 'First Arabic Cryptocurrency on Solana'
     },
     {
-      titleAr: 'نوصي باستخدام محفظة Phantom Solana',
-      titleEn: 'We recommend using Phantom Solana Wallet',
-      subtitleAr: 'للحصول على أفضل تجربة مع النظام',
-      subtitleEn: 'For the best experience with our system'
+      titleAr: 'Phantom Wallet',
+      titleEn: 'Phantom Wallet',
+      subtitleAr: '',
+      subtitleEn: ''
     }
   ];
 
