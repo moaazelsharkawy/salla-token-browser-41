@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Salla Network Design System - مستوحى من الشعار الذهبي والأزرق
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Primary Salla Colors - ألوان سلة الأساسية */
+    --background: 45 100% 97%;
+    --foreground: 220 25% 15%;
+
+    --card: 45 50% 95%;
+    --card-foreground: 220 25% 15%;
+
+    --popover: 45 100% 98%;
+    --popover-foreground: 220 25% 15%;
+
+    /* Salla Blue from logo - الأزرق من الشعار */
+    --primary: 195 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Salla Gold from logo - الذهبي من الشعار */
+    --secondary: 45 100% 65%;
+    --secondary-foreground: 220 25% 15%;
+
+    --muted: 45 30% 90%;
+    --muted-foreground: 220 15% 45%;
+
+    --accent: 195 80% 88%;
+    --accent-foreground: 195 100% 25%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 45 20% 85%;
+    --input: 45 30% 92%;
+    --ring: 195 100% 50%;
+
+    --radius: 1rem;
+
+    /* Salla Custom Gradients - تدرجات سلة المخصصة */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 50%), hsl(195 100% 40%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45 100% 65%), hsl(45 100% 55%));
+    --gradient-golden: linear-gradient(135deg, hsl(45 100% 70%) 0%, hsl(45 100% 55%) 50%, hsl(35 100% 50%) 100%);
+    --gradient-salla: linear-gradient(135deg, hsl(45 100% 65%) 0%, hsl(195 100% 50%) 100%);
+    
+    /* Shadows - ظلال */
+    --shadow-soft: 0 4px 20px hsl(45 50% 80% / 0.3);
+    --shadow-primary: 0 8px 30px hsl(195 100% 50% / 0.25);
+    --shadow-golden: 0 8px 25px hsl(45 100% 60% / 0.4);
+
+    /* Animations - حركات */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    /* Dark Mode Salla Colors - ألوان سلة في الوضع المظلم */
+    --background: 220 25% 8%;
+    --foreground: 45 80% 95%;
+
+    --card: 220 25% 12%;
+    --card-foreground: 45 80% 95%;
+
+    --popover: 220 25% 10%;
+    --popover-foreground: 45 80% 95%;
+
+    --primary: 195 100% 60%;
+    --primary-foreground: 220 25% 8%;
+
+    --secondary: 45 100% 70%;
+    --secondary-foreground: 220 25% 8%;
+
+    --muted: 220 15% 20%;
+    --muted-foreground: 45 30% 70%;
+
+    --accent: 195 60% 25%;
+    --accent-foreground: 195 100% 80%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 15% 25%;
+    --input: 220 15% 20%;
+    --ring: 195 100% 60%;
+
+    /* Dark Mode Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 60%), hsl(195 100% 45%));
+    --gradient-secondary: linear-gradient(135deg, hsl(45 100% 70%), hsl(45 100% 60%));
+    --gradient-golden: linear-gradient(135deg, hsl(45 100% 75%) 0%, hsl(45 100% 60%) 50%, hsl(35 100% 55%) 100%);
+    --gradient-salla: linear-gradient(135deg, hsl(45 100% 70%) 0%, hsl(195 100% 60%) 100%);
+    
+    /* Dark Shadows */
+    --shadow-soft: 0 4px 20px hsl(220 25% 5% / 0.5);
+    --shadow-primary: 0 8px 30px hsl(195 100% 60% / 0.3);
+    --shadow-golden: 0 8px 25px hsl(45 100% 70% / 0.3);
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-cairo antialiased;
+    transition: var(--transition-smooth);
+    direction: var(--direction, ltr);
+    font-feature-settings: 'kern' 1, 'liga' 1;
+  }
+
+  /* Arabic RTL Support - دعم العربية */
+  [dir="rtl"] {
+    --direction: rtl;
+  }
+
+  /* Custom scrollbar - شريط التمرير المخصص */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted/30;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary/50 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/70;
+  }
+}
+
+@layer components {
+  /* App Icon Styles - أنماط أيقونات التطبيق */
+  .app-icon {
+    @apply w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold;
+    @apply transition-all duration-300 hover:scale-105 active:scale-95;
+    @apply cursor-pointer select-none;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .app-icon:hover {
+    box-shadow: var(--shadow-primary);
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  /* Golden variant */
+  .app-icon-golden {
+    background: var(--gradient-golden);
+    box-shadow: var(--shadow-golden);
+  }
+
+  /* Settings button styles */
+  .settings-btn {
+    @apply w-12 h-12 rounded-xl flex items-center justify-center;
+    @apply transition-all duration-300 hover:scale-105 active:scale-95;
+    @apply border border-border/50 hover:border-primary/50;
+    background: var(--gradient-salla);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .settings-btn:hover {
+    box-shadow: var(--shadow-primary);
+  }
+}
