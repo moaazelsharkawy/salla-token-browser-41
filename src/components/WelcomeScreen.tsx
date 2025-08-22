@@ -14,9 +14,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
 
   const steps = [
     {
-      titleAr: 'مرحباً بك في شبكة سالا',
       titleEn: 'Welcome to Salla Network',
-      subtitleAr: 'أول عملة رقمية عربية على شبكة سولانا',
       subtitleEn: 'First Arabic Cryptocurrency on Solana'
     },
     {
@@ -49,12 +47,14 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
         {/* Logo Animation */}
         <div className="mb-8 relative">
           <div className="w-32 h-32 mx-auto mb-6 relative">
-            <div className="absolute inset-0 bg-white/20 rounded-3xl backdrop-blur-sm animate-pulse" />
-            <div className="relative w-full h-full p-4">
+            {/* Rotating border effect */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-secondary to-primary animate-spin" style={{ animationDuration: '3s' }} />
+            <div className="absolute inset-1 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full backdrop-blur-sm" />
+            <div className="relative w-full h-full p-3">
               <img 
-                src="/lovable-uploads/006c77a2-1ffe-4abe-96b0-2f4c1e51083c.png" 
+                src="/lovable-uploads/dc09e946-1dd1-488d-8dc1-5ae5c256887b.png" 
                 alt="Salla Network Logo"
-                className="w-full h-full object-contain drop-shadow-2xl animate-bounce"
+                className="w-full h-full object-contain drop-shadow-2xl animate-pulse"
               />
             </div>
           </div>
@@ -73,13 +73,28 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
 
         {/* Content */}
         <div className="animate-in slide-in-from-bottom-4 duration-1000 delay-500">
-          <h1 className="text-3xl font-bold mb-4 font-cairo leading-tight">
-            {i18n.language === 'ar' ? steps[currentStep].titleAr : steps[currentStep].titleEn}
-          </h1>
-          
-          <p className="text-lg text-white/80 mb-8 leading-relaxed">
-            {i18n.language === 'ar' ? steps[currentStep].subtitleAr : steps[currentStep].subtitleEn}
-          </p>
+          {currentStep === 0 ? (
+            <>
+              <h1 className="text-3xl font-bold mb-4 font-cairo leading-tight">
+                {steps[currentStep].titleEn}
+              </h1>
+              <p className="text-lg text-white/80 mb-8 leading-relaxed">
+                {steps[currentStep].subtitleEn}
+              </p>
+            </>
+          ) : (
+            <>
+              <h1 className="text-3xl font-bold mb-4 font-cairo leading-tight">
+                {steps[currentStep].titleAr}
+              </h1>
+              <p className="text-lg text-white/80 mb-4 leading-relaxed">
+                {steps[currentStep].subtitleAr}
+              </p>
+              <p className="text-base text-white/70 mb-8 leading-relaxed">
+                {steps[currentStep].subtitleEn}
+              </p>
+            </>
+          )}
 
           {/* Phantom Wallet Recommendation */}
           {currentStep === 1 && (
@@ -88,11 +103,11 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
                 <Wallet className="w-8 h-8 text-white" />
                 <span className="text-xl font-semibold">Phantom Wallet</span>
               </div>
-              <p className="text-white/90 text-sm leading-relaxed">
-                {i18n.language === 'ar' 
-                  ? 'محفظة آمنة وسهلة الاستخدام لشبكة سولانا، متوفرة كتطبيق موبايل وإضافة متصفح'
-                  : 'Secure and user-friendly Solana wallet, available as mobile app and browser extension'
-                }
+              <p className="text-white/90 text-sm leading-relaxed mb-2">
+                محفظة آمنة وسهلة الاستخدام لشبكة سولانا، متوفرة كتطبيق موبايل وإضافة متصفح
+              </p>
+              <p className="text-white/80 text-xs leading-relaxed">
+                Secure and user-friendly Solana wallet, available as mobile app and browser extension
               </p>
             </div>
           )}
