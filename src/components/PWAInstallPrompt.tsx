@@ -16,7 +16,7 @@ export const PWAInstallPrompt = ({ onInstall, onDismiss }: PWAInstallPromptProps
       <Card className="p-4 bg-background/95 backdrop-blur-sm border-primary/20 shadow-lg">
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg">
-            <Smartphone className="w-5 h-5 text-primary" />
+            <Smartphone className="w-4 h-4 text-primary" />
           </div>
           
           <div className="flex-1 min-w-0">
