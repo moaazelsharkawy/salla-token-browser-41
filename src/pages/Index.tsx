@@ -13,10 +13,7 @@ const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
   const { isLoading, handleExternalLink } = useLoading();
-  const [showWelcome, setShowWelcome] = useState(() => {
-    // Show welcome only if it's a fresh session (app opened, not reloaded)
-    return !sessionStorage.getItem('welcomeShown');
-  });
+  const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
     // Set initial direction based on language
@@ -25,8 +22,6 @@ const Index = () => {
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
-    // Mark welcome as shown for this session
-    sessionStorage.setItem('welcomeShown', 'true');
   };
 
   if (showWelcome) {
@@ -50,9 +45,9 @@ const Index = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg ring-2 ring-primary/20">
                 <img 
-                  src="/app-icon-512.png" 
+                  src="/lovable-uploads/006c77a2-1ffe-4abe-96b0-2f4c1e51083c.png" 
                   alt="Salla Network Logo"
-                  className="w-full h-full object-cover p-1"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-cairo">
