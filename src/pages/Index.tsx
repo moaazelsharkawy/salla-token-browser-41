@@ -13,7 +13,10 @@ const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
   const { isLoading, handleExternalLink } = useLoading();
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    // Show welcome only if it's a fresh session (app opened, not reloaded)
+    return !sessionStorage.getItem('welcomeShown');
+  });
 
   useEffect(() => {
     // Set initial direction based on language
@@ -22,6 +25,8 @@ const Index = () => {
 
   const handleWelcomeComplete = () => {
     setShowWelcome(false);
+    // Mark welcome as shown for this session
+    sessionStorage.setItem('welcomeShown', 'true');
   };
 
   if (showWelcome) {
