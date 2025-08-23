@@ -45,9 +45,9 @@ const Index = () => {
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg ring-2 ring-primary/20">
                 <img 
-                  src="/lovable-uploads/006c77a2-1ffe-4abe-96b0-2f4c1e51083c.png" 
+                  src="/app-icon-512.png" 
                   alt="Salla Network Logo"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover p-1"
                 />
               </div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-cairo">
