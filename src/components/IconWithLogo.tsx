@@ -4,12 +4,17 @@ interface IconWithLogoProps {
   type: string;
   label: string;
   href?: string;
+  onExternalClick?: (url: string) => void;
 }
 
-export function IconWithLogo({ type, label, href }: IconWithLogoProps) {
+export function IconWithLogo({ type, label, href, onExternalClick }: IconWithLogoProps) {
   const handleClick = () => {
     if (href) {
-      window.open(href, '_blank');
+      if (onExternalClick) {
+        onExternalClick(href);
+      } else {
+        window.open(href, '_blank');
+      }
     }
   };
 

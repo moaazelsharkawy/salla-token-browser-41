@@ -2,7 +2,11 @@ import { useTranslation } from 'react-i18next';
 import { IconWithLogo } from './IconWithLogo';
 import { AppIcon } from './AppIcon';
 
-export function AppGrid() {
+interface AppGridProps {
+  onExternalClick?: (url: string) => void;
+}
+
+export function AppGrid({ onExternalClick }: AppGridProps) {
   const { t } = useTranslation();
 
   const apps = [
@@ -33,6 +37,7 @@ export function AppGrid() {
             image={app.image!}
             label={t(`apps.${app.key}`)}
             href={app.href}
+            onExternalClick={onExternalClick}
           />
         ) : (
           <IconWithLogo
@@ -40,6 +45,7 @@ export function AppGrid() {
             type={app.type}
             label={t(`apps.${app.key}`)}
             href={app.href}
+            onExternalClick={onExternalClick}
           />
         )
       ))}

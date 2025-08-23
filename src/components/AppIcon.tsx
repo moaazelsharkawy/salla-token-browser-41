@@ -5,12 +5,17 @@ interface AppIconProps {
   label: string;
   variant?: 'default' | 'golden';
   href?: string;
+  onExternalClick?: (url: string) => void;
 }
 
-export function AppIcon({ image, label, variant = 'default', href }: AppIconProps) {
+export function AppIcon({ image, label, variant = 'default', href, onExternalClick }: AppIconProps) {
   const handleClick = () => {
     if (href) {
-      window.open(href, '_blank');
+      if (onExternalClick) {
+        onExternalClick(href);
+      } else {
+        window.open(href, '_blank');
+      }
     }
   };
 

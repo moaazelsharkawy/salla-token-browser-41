@@ -5,11 +5,14 @@ import { SettingsPanel } from '@/components/SettingsPanel';
 import { ShareButton } from '@/components/ShareButton';
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { usePWA } from '@/hooks/usePWA';
+import { useLoading } from '@/hooks/useLoading';
 
 const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
+  const { isLoading, handleExternalLink } = useLoading();
   const [showWelcome, setShowWelcome] = useState(true);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ const Index = () => {
           {/* App grid - centered and responsive */}
           <main className="flex-1 flex items-center justify-center pb-12">
             <div className="w-full max-w-sm">
-              <AppGrid />
+              <AppGrid onExternalClick={handleExternalLink} />
             </div>
           </main>
           
@@ -85,6 +88,9 @@ const Index = () => {
           onDismiss={dismissPrompt}
         />
       )}
+
+      {/* Loading Spinner */}
+      <LoadingSpinner isVisible={isLoading} />
     </div>
   );
 };
