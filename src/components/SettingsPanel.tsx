@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn, Palette, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SettingsPanel() {
@@ -46,115 +47,129 @@ export function SettingsPanel() {
           </SheetTitle>
         </SheetHeader>
         
-        <div className="space-y-6 mt-8">
-          {/* Login Section */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <LogIn size={20} className="text-primary" />
-              {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
-            </h3>
-            <Button
-              variant="outline"
-              className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-              onClick={() => window.open('https://salla-shop.com/my-account/', '_blank')}
-            >
-              <LogIn size={16} />
-              {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
-            </Button>
-          </div>
-
-          {/* Language Section */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
-              <Globe size={20} className="text-primary" />
-              {t('language')}
-            </h3>
-            <div className="grid grid-cols-2 gap-2">
+        <ScrollArea className="h-[calc(100vh-120px)] pr-4">
+          <div className="space-y-6 mt-8">
+            {/* Login Section */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <LogIn size={20} className="text-primary" />
+                {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+              </h3>
               <Button
-                variant={i18n.language === 'ar' ? 'default' : 'outline'}
-                onClick={() => changeLanguage('ar')}
-                className="w-full transition-all hover:scale-105"
+                variant="outline"
+                className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+                onClick={() => window.open('https://salla-shop.com/my-account/', '_blank')}
               >
-                العربية
-              </Button>
-              <Button
-                variant={i18n.language === 'en' ? 'default' : 'outline'}
-                onClick={() => changeLanguage('en')}
-                className="w-full transition-all hover:scale-105"
-              >
-                English
+                <LogIn size={16} />
+                {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
               </Button>
             </div>
-          </div>
 
-          {/* Theme Section */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold">{t('theme')}</h3>
-            <div className="grid grid-cols-2 gap-2">
-              <Button
-                variant={theme === 'light' ? 'default' : 'outline'}
-                onClick={() => theme === 'dark' && toggleTheme()}
-                className="w-full flex items-center gap-2 transition-all hover:scale-105"
-              >
-                <Sun size={16} />
-                {t('lightMode')}
-              </Button>
-              <Button
-                variant={theme === 'dark' ? 'default' : 'outline'}
-                onClick={() => theme === 'light' && toggleTheme()}
-                className="w-full flex items-center gap-2 transition-all hover:scale-105"
-              >
-                <Moon size={16} />
-                {t('darkMode')}
-              </Button>
-            </div>
-          </div>
-
-          {/* White Paper */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold">{i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}</h3>
-            <Button
-              variant="outline"
-              className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-              onClick={() => window.open('https://paper.salla-shop.com', '_blank')}
-            >
-              <FileText size={16} />
-              {i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}
-            </Button>
-          </div>
-
-          {/* ST Telegram Bot */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold">ST Telegram Bot</h3>
-            <Button
-              variant="outline"
-              className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-              onClick={() => window.open('https://t.me/pisalla_bot', '_blank')}
-            >
-              <Bot size={16} />
-              ST Telegram Bot
-            </Button>
-          </div>
-
-          {/* Social Links */}
-          <div className="space-y-3">
-            <h3 className="text-lg font-semibold">{t('social')}</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {socialLinks.map((social) => (
+            {/* Language Section */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Globe size={20} className="text-primary" />
+                {t('language')}
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
                 <Button
-                  key={social.label}
-                  variant="outline"
-                  size="sm"
-                  className="flex items-center gap-2 hover:scale-105 transition-all"
-                  onClick={() => window.open(social.url, '_blank')}
+                  variant={i18n.language === 'ar' ? 'default' : 'outline'}
+                  onClick={() => changeLanguage('ar')}
+                  className="w-full transition-all hover:scale-105"
                 >
-                  <social.icon size={16} />
-                  {social.label}
+                  العربية
                 </Button>
-              ))}
+                <Button
+                  variant={i18n.language === 'en' ? 'default' : 'outline'}
+                  onClick={() => changeLanguage('en')}
+                  className="w-full transition-all hover:scale-105"
+                >
+                  English
+                </Button>
+              </div>
+            </div>
+
+            {/* Theme Section */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Palette size={20} className="text-primary" />
+                {t('theme')}
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  variant={theme === 'light' ? 'default' : 'outline'}
+                  onClick={() => theme === 'dark' && toggleTheme()}
+                  className="w-full flex items-center gap-2 transition-all hover:scale-105"
+                >
+                  <Sun size={16} />
+                  {t('lightMode')}
+                </Button>
+                <Button
+                  variant={theme === 'dark' ? 'default' : 'outline'}
+                  onClick={() => theme === 'light' && toggleTheme()}
+                  className="w-full flex items-center gap-2 transition-all hover:scale-105"
+                >
+                  <Moon size={16} />
+                  {t('darkMode')}
+                </Button>
+              </div>
+            </div>
+
+            {/* White Paper */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <FileText size={20} className="text-primary" />
+                {i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}
+              </h3>
+              <Button
+                variant="outline"
+                className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+                onClick={() => window.open('https://paper.salla-shop.com', '_blank')}
+              >
+                <FileText size={16} />
+                {i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}
+              </Button>
+            </div>
+
+            {/* ST Telegram Bot */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Bot size={20} className="text-primary" />
+                ST Telegram Bot
+              </h3>
+              <Button
+                variant="outline"
+                className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+                onClick={() => window.open('https://t.me/pisalla_bot', '_blank')}
+              >
+                <Bot size={16} />
+                ST Telegram Bot
+              </Button>
+            </div>
+
+            {/* Social Links */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Users size={20} className="text-primary" />
+                {t('social')}
+              </h3>
+              <div className="grid grid-cols-2 gap-3">
+                {socialLinks.map((social) => (
+                  <Button
+                    key={social.label}
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2 hover:scale-105 transition-all"
+                    onClick={() => window.open(social.url, '_blank')}
+                  >
+                    <social.icon size={16} />
+                    {social.label}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   );
