@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
+import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn, Palette, Users } from 'lucide-react';
+import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn, LogOut, Palette, Users, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SettingsPanel() {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
+  const { user, isAuthenticated, login, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
   const changeLanguage = (lng: string) => {
@@ -49,20 +51,48 @@ export function SettingsPanel() {
         
         <ScrollArea className="h-[calc(100vh-120px)] pr-4">
           <div className="space-y-6 mt-8">
-            {/* Login Section */}
+            {/* Login/User Section */}
             <div className="space-y-3">
               <h3 className="text-lg font-semibold flex items-center gap-2">
-                <LogIn size={20} className="text-primary" />
-                {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                {isAuthenticated ? (
+                  <>
+                    <User size={20} className="text-primary" />
+                    {i18n.language === 'ar' ? 'الحساب' : 'Account'}
+                  </>
+                ) : (
+                  <>
+                    <LogIn size={20} className="text-primary" />
+                    {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                  </>
+                )}
               </h3>
-              <Button
-                variant="outline"
-                className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-                onClick={() => window.open('https://salla-shop.com/my-account/', '_blank')}
-              >
-                <LogIn size={16} />
-                {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
-              </Button>
+              {isAuthenticated && user ? (
+                <div className="space-y-2">
+                  <div className="p-3 bg-muted/50 rounded-lg">
+                    <p className="text-sm font-medium">
+                      {i18n.language === 'ar' ? 'مرحباً، ' : 'Welcome, '}
+                      <span className="text-primary">{user.user_login}</span>
+                    </p>
+                  </div>
+                  <Button
+                    variant="outline"
+                    className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+                    onClick={logout}
+                  >
+                    <LogOut size={16} />
+                    {i18n.language === 'ar' ? 'تسجيل الخروج' : 'Logout'}
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="w-full flex items-center gap-2 hover:scale-105 transition-all"
+                  onClick={login}
+                >
+                  <LogIn size={16} />
+                  {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                </Button>
+              )}
             </div>
 
             {/* Language Section */}
