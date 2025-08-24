@@ -10,7 +10,7 @@ export function AppGrid({ onExternalClick }: AppGridProps) {
   const { t } = useTranslation();
 
   const apps = [
-    { type: 'mining', key: 'mining', href: 'https://salla-shop.com/mining', useCustomIcon: false },
+    { type: 'mining', key: 'mining', href: 'https://salla-shop.com/mining', useCustomIcon: true, image: '/lovable-uploads/5c3e9ffe-8f37-4bf9-a759-f28ecc772177.png' },
     { type: 'deposit', key: 'deposit', href: 'https://salla-shop.com/st-deposit/', useCustomIcon: true, image: '/lovable-uploads/5efbad70-8c28-42f4-999a-e33ba97dd136.png' },
     { type: 'withdraw', key: 'withdraw', href: 'https://salla-shop.com/st-withdraw/', useCustomIcon: true, image: '/lovable-uploads/9a245025-bc13-4de6-9593-eab6ec20ac92.png' },
     { type: 'transfer', key: 'transfer', href: 'https://salla-shop.com/st-transfer/', useCustomIcon: true, image: '/lovable-uploads/8532e579-cb11-4528-89ba-5111bdb13006.png' },
@@ -25,7 +25,7 @@ export function AppGrid({ onExternalClick }: AppGridProps) {
     { type: 'kyc', key: 'kyc', href: 'https://salla-shop.com/kyc/', useCustomIcon: true, image: '/lovable-uploads/28d7ec75-6696-429d-83ec-c126abb7649a.png' },
     { type: 'social', key: 'social', href: 'https://salla-shop.com/decentralized-voting/', useCustomIcon: true, image: '/lovable-uploads/0f58b5a4-7450-4ddc-ba87-99c69dee259a.png' },
     { type: 'coupons', key: 'coupons', href: 'https://salla-shop.com/st-coupons/', useCustomIcon: true, image: '/lovable-uploads/1856b522-d775-4363-82c7-b94fd9a10fd4.png' },
-    { type: 'piMall', key: 'piMall', href: 'https://salla-shop.com', useCustomIcon: false }
+    { type: 'piMall', key: 'piMall', href: 'https://salla-shop.com', useCustomIcon: true, image: '/lovable-uploads/9d903013-01c4-4173-afb7-184f4b235d6b.png' }
   ];
 
   return (
