@@ -196,16 +196,12 @@ export function IconWithLogo({ type, label, href, onExternalClick }: IconWithLog
           </div>
         </div>
         
-        {/* Decorative icon in corner */}
-        <div className="absolute -top-1 -right-1 text-xs bg-white/90 rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
-          {type === 'mining' ? (
-            <img src={miningIconNew} alt="Mining" className="w-3 h-3 object-contain" />
-          ) : type === 'piMall' ? (
-            <img src={sallaShopIcon} alt="Salla Shop" className="w-3 h-3 object-contain" />
-          ) : (
-            design.icon
-          )}
-        </div>
+        {/* Decorative icon in corner - hidden for mining and piMall */}
+        {type !== 'mining' && type !== 'piMall' && (
+          <div className="absolute -top-1 -right-1 text-xs bg-white/90 rounded-full w-5 h-5 flex items-center justify-center shadow-sm">
+            {design.icon}
+          </div>
+        )}
         
         {/* Hover glow effect */}
         <div className={cn(
