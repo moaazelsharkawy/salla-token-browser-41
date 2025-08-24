@@ -13,7 +13,10 @@ const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
   const { isLoading, handleExternalLink } = useLoading();
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    // Check if this is a fresh app opening (not a reload)
+    return !sessionStorage.getItem('app-visited');
+  });
 
   useEffect(() => {
     // Set initial direction based on language
@@ -21,6 +24,8 @@ const Index = () => {
   }, [i18n.language]);
 
   const handleWelcomeComplete = () => {
+    // Mark that the app has been visited in this session
+    sessionStorage.setItem('app-visited', 'true');
     setShowWelcome(false);
   };
 
