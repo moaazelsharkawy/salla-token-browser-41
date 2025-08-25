@@ -138,6 +138,24 @@ All colors MUST be HSL.
     transition: var(--transition-smooth);
     direction: var(--direction, ltr);
     font-feature-settings: 'kern' 1, 'liga' 1;
+    
+    /* Lock screen orientation to portrait - منع الدوران التلقائي */
+    transform-origin: center center;
+    overflow-x: hidden;
+  }
+
+  /* Force portrait orientation on mobile devices */
+  @media screen and (orientation: landscape) and (max-device-width: 768px) {
+    body {
+      transform: rotate(-90deg);
+      transform-origin: left top;
+      width: 100vh;
+      height: 100vw;
+      overflow: hidden;
+      position: absolute;
+      top: 100%;
+      left: 0;
+    }
   }
 
   /* Arabic RTL Support - دعم العربية */
