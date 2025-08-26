@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Capacitor } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 
 interface UseLoadingReturn {
@@ -23,12 +24,18 @@ export function useLoading(): UseLoadingReturn {
     startLoading();
     
     try {
-      // استخدام متصفح Chrome المضمن من Capacitor
-      await Browser.open({ 
-        url: url,
-        presentationStyle: 'popover',
-        toolbarColor: '#ffffff'
-      });
+      // التحقق من وجود Capacitor والتطبيق المحلي
+      if (Capacitor.isNativePlatform()) {
+        // استخدام متصفح Chrome المضمن في التطبيق المحلي
+        await Browser.open({ 
+          url: url,
+          presentationStyle: 'popover',
+          toolbarColor: '#ffffff'
+        });
+      } else {
+        // في حالة المتصفح العادي، استخدم النافذة الجديدة
+        window.open(url, '_blank');
+      }
     } catch (error) {
       // في حالة فشل المتصفح المضمن، استخدم المتصفح العادي
       window.open(url, '_blank');
