@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Browser } from '@capacitor/browser';
 
 interface UseLoadingReturn {
   isLoading: boolean;
@@ -18,15 +19,23 @@ export function useLoading(): UseLoadingReturn {
     setIsLoading(false);
   }, []);
 
-  const handleExternalLink = useCallback((url: string) => {
+  const handleExternalLink = useCallback(async (url: string) => {
     startLoading();
     
-    // تشغيل التحميل لفترة قصيرة للإشارة إلى بدء التحميل
-    setTimeout(() => {
+    try {
+      // استخدام متصفح Chrome المضمن من Capacitor
+      await Browser.open({ 
+        url: url,
+        presentationStyle: 'popover',
+        toolbarColor: '#ffffff'
+      });
+    } catch (error) {
+      // في حالة فشل المتصفح المضمن، استخدم المتصفح العادي
       window.open(url, '_blank');
-      // إيقاف التحميل بعد فتح الرابط
-      setTimeout(stopLoading, 1000);
-    }, 500);
+    } finally {
+      // إيقاف التحميل
+      setTimeout(stopLoading, 500);
+    }
   }, [startLoading, stopLoading]);
 
   // مراقبة أحداث المتصفح لإعادة التحميل
