@@ -26,7 +26,7 @@ export function SettingsPanel() {
   );
 
   const socialLinks = [
-    { icon: Github, label: 'GitHub', url: 'https://github.com/moaazelsharkawy/salla-token-browser/blob/main/README.md' },
+    { icon: Github, label: 'GitHub', url: 'https://github.com/moaazelsharkawy/salla-token-browser/tree/main' },
     { icon: XIcon, label: 'X', url: 'https://twitter.com/pisallashop' },
     { icon: Send, label: 'Telegram', url: 'https://telegram.me/pisallashop' },
     { icon: Facebook, label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61555886373555' },
