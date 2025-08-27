@@ -45,35 +45,96 @@ export function useLoading(): UseLoadingReturn {
     }
   }, [startLoading, stopLoading]);
 
-  // مراقبة أحداث المتصفح لإعادة التحميل
+  // إدارة دورة حياة التطبيق للأجهزة المحمولة
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      startLoading();
-    };
+    let isAppVisible = true;
+    let loadingTimeout: NodeJS.Timeout | null = null;
 
-    const handleLoad = () => {
-      stopLoading();
+    const clearLoadingTimeout = () => {
+      if (loadingTimeout) {
+        clearTimeout(loadingTimeout);
+        loadingTimeout = null;
+      }
     };
 
     // التعامل مع حالة التركيز على النافذة (عندما يعود المستخدم للتطبيق)
     const handleFocus = () => {
-      stopLoading();
+      isAppVisible = true;
+      clearLoadingTimeout();
+      // تأخير قصير لضمان استقرار التطبيق قبل إيقاف التحميل
+      loadingTimeout = setTimeout(() => {
+        stopLoading();
+      }, 100);
     };
 
     const handleBlur = () => {
-      // عدم بدء التحميل فوراً عند فقدان التركيز
+      isAppVisible = false;
+      clearLoadingTimeout();
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    window.addEventListener('load', handleLoad);
+    // التعامل مع تغيير حالة الرؤية (أهم للأجهزة المحمولة)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        isAppVisible = true;
+        clearLoadingTimeout();
+        // إيقاف أي حالة تحميل معلقة عند عودة التطبيق
+        loadingTimeout = setTimeout(() => {
+          stopLoading();
+        }, 200);
+      } else {
+        isAppVisible = false;
+        clearLoadingTimeout();
+      }
+    };
+
+    // التعامل مع أحداث دورة حياة الصفحة (للأجهزة المحمولة)
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) {
+        // الصفحة تم استردادها من cache - تنظيف حالة التحميل
+        clearLoadingTimeout();
+        stopLoading();
+      }
+    };
+
+    const handlePageHide = () => {
+      clearLoadingTimeout();
+    };
+
+    // التعامل مع تجميد/إلغاء تجميد التطبيق
+    const handleFreeze = () => {
+      clearLoadingTimeout();
+    };
+
+    const handleResume = () => {
+      if (isAppVisible) {
+        clearLoadingTimeout();
+        loadingTimeout = setTimeout(() => {
+          stopLoading();
+        }, 150);
+      }
+    };
+
+    // إضافة مستمعي الأحداث
     window.addEventListener('focus', handleFocus);
     window.addEventListener('blur', handleBlur);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pageshow', handlePageShow);
+    window.addEventListener('pagehide', handlePageHide);
+    
+    // أحداث تجميد/استئناف التطبيق (للأجهزة المحمولة الحديثة)
+    document.addEventListener('freeze', handleFreeze);
+    document.addEventListener('resume', handleResume);
 
+    // تنظيف عند إلغاء التحميل
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      window.removeEventListener('load', handleLoad);
+      clearLoadingTimeout();
       window.removeEventListener('focus', handleFocus);
       window.removeEventListener('blur', handleBlur);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pageshow', handlePageShow);
+      window.removeEventListener('pagehide', handlePageHide);
+      document.removeEventListener('freeze', handleFreeze);
+      document.removeEventListener('resume', handleResume);
     };
   }, [startLoading, stopLoading]);
 
