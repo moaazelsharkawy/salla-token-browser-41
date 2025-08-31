@@ -49,7 +49,7 @@ const resources = {
         escrow: "الضمان",
         explorer: "المستكشف",
         swap: "تبديل",
-        virtualCards: "بطاقات دفع افتراضية",
+        virtualCards: "بطاقات الدفع",
         developerApi: "محفظة التاجر",
         commerce: "ST Commerce",
         p2p: "ST P2P",
