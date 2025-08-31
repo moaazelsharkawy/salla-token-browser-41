@@ -50,7 +50,7 @@ const resources = {
         explorer: "المستكشف",
         swap: "تبديل",
         virtualCards: "بطاقات دفع افتراضية",
-        developerApi: "منطقة API التجار",
+        developerApi: "محفظة التاجر",
         commerce: "ST Commerce",
         p2p: "ST P2P",
         kyc: "KYC",
