@@ -28,14 +28,13 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 animate-spin" style={{ animationDuration: '4s' }} />
             <div className="absolute inset-1 bg-gradient-to-br from-green-400/20 to-purple-600/20 rounded-full backdrop-blur-sm" />
             <div className="relative w-full h-full p-4 flex items-center justify-center">
-              {/* Solana-inspired icon */}
+              {/* Salla Token Logo */}
               <div className="w-20 h-20 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg transform rotate-12" />
-                <div className="absolute inset-1 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-2xl font-bold bg-gradient-to-r from-green-500 to-blue-600 bg-clip-text text-transparent">
-                    SOL
-                  </span>
-                </div>
+                <img 
+                  src="/lovable-uploads/7d1f02d5-8a29-4ef8-aebb-2031f0b36009.png" 
+                  alt="Salla Token" 
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
           </div>
