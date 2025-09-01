@@ -5,6 +5,7 @@ import { SettingsPanel } from '@/components/SettingsPanel';
 import { ShareButton } from '@/components/ShareButton';
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
+import { BlockchainWelcome } from '@/components/BlockchainWelcome';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { usePWA } from '@/hooks/usePWA';
 import { useLoading } from '@/hooks/useLoading';
@@ -13,9 +14,9 @@ const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
   const { isLoading, handleExternalLink } = useLoading();
-  const [showWelcome, setShowWelcome] = useState(() => {
+  const [welcomeStep, setWelcomeStep] = useState(() => {
     // Check if this is a fresh app opening (not a reload)
-    return !sessionStorage.getItem('app-visited');
+    return !sessionStorage.getItem('app-visited') ? 'first' : 'none';
   });
 
   useEffect(() => {
@@ -23,14 +24,22 @@ const Index = () => {
     document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
   }, [i18n.language]);
 
-  const handleWelcomeComplete = () => {
-    // Mark that the app has been visited in this session
-    sessionStorage.setItem('app-visited', 'true');
-    setShowWelcome(false);
+  const handleFirstWelcomeComplete = () => {
+    setWelcomeStep('blockchain');
   };
 
-  if (showWelcome) {
-    return <WelcomeScreen onComplete={handleWelcomeComplete} />;
+  const handleBlockchainWelcomeComplete = () => {
+    // Mark that the app has been visited in this session
+    sessionStorage.setItem('app-visited', 'true');
+    setWelcomeStep('none');
+  };
+
+  if (welcomeStep === 'first') {
+    return <WelcomeScreen onComplete={handleFirstWelcomeComplete} />;
+  }
+
+  if (welcomeStep === 'blockchain') {
+    return <BlockchainWelcome onComplete={handleBlockchainWelcomeComplete} />;
   }
 
   return (
