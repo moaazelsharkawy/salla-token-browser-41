@@ -67,6 +67,17 @@ const Index = () => {
             <p className="text-lg font-semibold text-muted-foreground">
               Welcome to Salla Token Ecosystem
             </p>
+            <div className="flex items-center justify-center gap-2 mt-3">
+              <p className="text-sm text-muted-foreground/80">
+                powered by solana blockchain
+              </p>
+              <div className="flex items-center gap-1">
+                <div className="w-4 h-4 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-background"></div>
+                </div>
+                <span className="text-xs font-bold text-primary">SOL</span>
+              </div>
+            </div>
           </div>
 
           {/* App grid - centered and responsive */}
