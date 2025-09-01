@@ -54,18 +54,18 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
 
         {/* Content */}
         <div className="animate-in slide-in-from-bottom-4 duration-1000 delay-500">
-          <h1 className="text-3xl font-bold mb-2 font-cairo leading-tight">
-            مبنية على شبكة سولانا
+          <h1 className="text-3xl font-bold mb-4 font-cairo leading-tight">
+            {i18n.language === 'ar' 
+              ? 'مبنية على شبكة سولانا' 
+              : 'Built on Solana Blockchain'
+            }
           </h1>
-          <h2 className="text-xl font-semibold mb-4 text-white/80">
-            Built on Solana Blockchain
-          </h2>
           
-          <p className="text-lg text-white/90 mb-2 leading-relaxed">
-            شبكة بلوكتشين فائقة السرعة تدعم المدفوعات السريعة والآمنة
-          </p>
-          <p className="text-base text-white/70 mb-8 leading-relaxed">
-            Ultra-fast blockchain network supporting quick and secure payments
+          <p className="text-lg text-white/90 mb-8 leading-relaxed">
+            {i18n.language === 'ar'
+              ? 'شبكة بلوكتشين فائقة السرعة تدعم المدفوعات السريعة والآمنة'
+              : 'Ultra-fast blockchain network supporting quick and secure payments'
+            }
           </p>
 
           {/* Features */}
@@ -73,17 +73,11 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
               <Zap className="w-6 h-6 text-yellow-400" />
               <div className="text-left">
-                <p className="font-semibold text-sm mb-1">
-                  سرعة فائقة
+                <p className="font-semibold text-sm">
+                  {i18n.language === 'ar' ? 'سرعة فائقة' : 'Ultra Fast'}
                 </p>
-                <p className="font-medium text-xs text-white/90 mb-2">
-                  Ultra Fast
-                </p>
-                <p className="text-xs text-white/80 mb-1">
-                  معاملات في أقل من ثانية
-                </p>
-                <p className="text-xs text-white/70">
-                  Transactions in under a second
+                <p className="text-xs text-white/80">
+                  {i18n.language === 'ar' ? 'معاملات في أقل من ثانية' : 'Transactions in under a second'}
                 </p>
               </div>
             </div>
@@ -91,17 +85,11 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
               <Globe className="w-6 h-6 text-green-400" />
               <div className="text-left">
-                <p className="font-semibold text-sm mb-1">
-                  رسوم منخفضة
+                <p className="font-semibold text-sm">
+                  {i18n.language === 'ar' ? 'رسوم منخفضة' : 'Low Fees'}
                 </p>
-                <p className="font-medium text-xs text-white/90 mb-2">
-                  Low Fees
-                </p>
-                <p className="text-xs text-white/80 mb-1">
-                  تكلفة أقل من سنت واحد
-                </p>
-                <p className="text-xs text-white/70">
-                  Less than a cent per transaction
+                <p className="text-xs text-white/80">
+                  {i18n.language === 'ar' ? 'تكلفة أقل من سنت واحد' : 'Less than a cent per transaction'}
                 </p>
               </div>
             </div>
@@ -109,17 +97,11 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
             <div className="flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
               <Shield className="w-6 h-6 text-blue-400" />
               <div className="text-left">
-                <p className="font-semibold text-sm mb-1">
-                  أمان عالي
+                <p className="font-semibold text-sm">
+                  {i18n.language === 'ar' ? 'أمان عالي' : 'High Security'}
                 </p>
-                <p className="font-medium text-xs text-white/90 mb-2">
-                  High Security
-                </p>
-                <p className="text-xs text-white/80 mb-1">
-                  حماية متقدمة للأموال
-                </p>
-                <p className="text-xs text-white/70">
-                  Advanced fund protection
+                <p className="text-xs text-white/80">
+                  {i18n.language === 'ar' ? 'حماية متقدمة للأموال' : 'Advanced fund protection'}
                 </p>
               </div>
             </div>
@@ -132,7 +114,7 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
             className="bg-white text-purple-700 hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000"
           >
             <span className="mr-2">
-              التالي - Continue
+              {i18n.language === 'ar' ? 'التالي' : 'Continue'}
             </span>
             <ArrowRight className="w-5 h-5" />
           </Button>
