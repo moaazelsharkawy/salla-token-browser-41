@@ -6,11 +6,38 @@ import { Button } from '@/components/ui/button';
 export const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
+  const isValidUrl = (string: string) => {
+    try {
+      // Check if it's a URL with protocol
+      if (string.startsWith('http://') || string.startsWith('https://')) {
+        new URL(string);
+        return true;
+      }
+      // Check if it looks like a domain (contains dots and no spaces)
+      if (string.includes('.') && !string.includes(' ') && string.length > 3) {
+        new URL(`https://${string}`);
+        return true;
+      }
+      return false;
+    } catch {
+      return false;
+    }
+  };
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery.trim())}`;
-      window.open(googleSearchUrl, '_blank');
+      const query = searchQuery.trim();
+      
+      if (isValidUrl(query)) {
+        // It's a URL - navigate directly
+        const url = query.startsWith('http') ? query : `https://${query}`;
+        window.open(url, '_blank');
+      } else {
+        // It's a search query - use Google
+        const googleSearchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+        window.open(googleSearchUrl, '_blank');
+      }
     }
   };
 
@@ -31,7 +58,7 @@ export const SearchBar = () => {
             {/* Input field */}
             <Input
               type="text"
-              placeholder="ابحث في جوجل... Search Google..."
+              placeholder="أدخل رابط أو ابحث في جوجل... Enter URL or search Google..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 border-0 bg-transparent text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0 text-base px-0 py-3 h-auto"
@@ -46,7 +73,9 @@ export const SearchBar = () => {
               disabled={!searchQuery.trim()}
             >
               <Globe className="w-4 h-4 mr-1" />
-              <span className="text-xs font-medium">بحث</span>
+              <span className="text-xs font-medium">
+                {isValidUrl(searchQuery.trim()) ? 'انتقال' : 'بحث'}
+              </span>
             </Button>
           </div>
           
