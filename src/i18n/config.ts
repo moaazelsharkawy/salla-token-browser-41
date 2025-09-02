@@ -28,7 +28,10 @@ const resources = {
         social: "ST Social",
         coupons: "Create Coupons",
         piMall: "Pi Mall"
-      }
+      },
+      searchPlaceholder: "Enter URL or search Google...",
+      search: "Search",
+      navigate: "Go"
     }
   },
   ar: {
@@ -57,7 +60,10 @@ const resources = {
         social: "ST Social",
         coupons: "إنشاء الخصم",
         piMall: "مول Pi"
-      }
+      },
+      searchPlaceholder: "أدخل رابط أو ابحث في جوجل...",
+      search: "بحث",
+      navigate: "انتقال"
     }
   }
 };

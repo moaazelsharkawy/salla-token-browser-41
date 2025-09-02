@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { Search, Globe } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from 'react-i18next';
 
 export const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
 
   const isValidUrl = (string: string) => {
     try {
@@ -58,7 +60,7 @@ export const SearchBar = () => {
             {/* Input field */}
             <Input
               type="text"
-              placeholder="أدخل رابط أو ابحث في جوجل... Enter URL or search Google..."
+              placeholder={t('searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 border-0 bg-transparent text-foreground placeholder:text-muted-foreground/60 focus-visible:ring-0 focus-visible:ring-offset-0 text-base px-0 py-3 h-auto"
@@ -74,7 +76,7 @@ export const SearchBar = () => {
             >
               <Globe className="w-4 h-4 mr-1" />
               <span className="text-xs font-medium">
-                {isValidUrl(searchQuery.trim()) ? 'انتقال' : 'بحث'}
+                {isValidUrl(searchQuery.trim()) ? t('navigate') : t('search')}
               </span>
             </Button>
           </div>
