@@ -7,8 +7,7 @@ import { PWAInstallPrompt } from '@/components/PWAInstallPrompt';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { BlockchainWelcome } from '@/components/BlockchainWelcome';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
-import { BrowserTabs } from '@/components/BrowserTabs';
-import { PiPriceTracker } from '@/components/PiPriceTracker';
+import { SearchBar } from '@/components/SearchBar';
 import { usePWA } from '@/hooks/usePWA';
 import { useLoading } from '@/hooks/useLoading';
 
@@ -56,16 +55,11 @@ const Index = () => {
           {/* Top status bar simulation */}
           <div className="h-6 bg-gradient-to-r from-primary/10 to-secondary/10" />
           
-          {/* Browser Tabs */}
-          <BrowserTabs />
-          
-          {/* Pi Price Tracker */}
-          <div className="px-4 py-2">
-            <PiPriceTracker />
-          </div>
+          {/* Search Bar */}
+          <SearchBar />
           
           {/* Header with app name and settings */}
-          <header className="flex items-center justify-between p-6 pt-4">
+          <header className="flex items-center justify-between p-6 pt-8">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg ring-2 ring-primary/20">
                 <img 
