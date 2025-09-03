@@ -31,7 +31,12 @@ const resources = {
       },
       searchPlaceholder: "Enter URL or search Google...",
       search: "Search",
-      navigate: "Go"
+      navigate: "Go",
+      prices: {
+        livePrices: "Live Prices",
+        estimated: "Estimated",
+        lastUpdated: "Last updated"
+      }
     }
   },
   ar: {
@@ -63,7 +68,12 @@ const resources = {
       },
       searchPlaceholder: "أدخل رابط أو ابحث في جوجل...",
       search: "بحث",
-      navigate: "انتقال"
+      navigate: "انتقال",
+      prices: {
+        livePrices: "الأسعار المباشرة",
+        estimated: "مقدر",
+        lastUpdated: "آخر تحديث"
+      }
     }
   }
 };

@@ -10,6 +10,7 @@ interface PiPriceData {
 
 interface StPriceData {
   estimated_price: number;
+  change24h?: string;
   lastUpdate: number;
 }
 
@@ -17,6 +18,7 @@ export const PriceTracker = () => {
   const { t } = useTranslation();
   const [piPrice, setPiPrice] = useState<PiPriceData | null>(null);
   const [stPrice, setStPrice] = useState<StPriceData | null>(null);
+  const [prevStPrice, setPrevStPrice] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isManualRefresh, setIsManualRefresh] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,8 +49,18 @@ export const PriceTracker = () => {
       const response = await fetch('https://salla-shop.com/wp-json/swap-plugin/v1/st-price');
       const data = await response.json();
       
+      const currentPrice = parseFloat(data.estimated_price || data.price || '0');
+      let change24h = '0';
+      
+      if (prevStPrice !== null && prevStPrice !== 0) {
+        const changePercent = ((currentPrice - prevStPrice) / prevStPrice * 100);
+        change24h = changePercent.toFixed(2);
+      }
+      
+      setPrevStPrice(currentPrice);
       setStPrice({
-        estimated_price: parseFloat(data.estimated_price || data.price || '0'),
+        estimated_price: currentPrice,
+        change24h,
         lastUpdate: Date.now()
       });
     } catch (err) {
@@ -112,7 +124,7 @@ export const PriceTracker = () => {
       <div className="max-w-2xl mx-auto">
         {/* Header with refresh button */}
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-sm font-semibold text-foreground/90">Live Prices</h3>
+          <h3 className="text-sm font-semibold text-foreground/90">{t('prices.livePrices')}</h3>
           <button
             onClick={() => fetchPrices(true)}
             disabled={isManualRefresh}
@@ -149,8 +161,9 @@ export const PriceTracker = () => {
                   <div className="text-sm font-bold text-foreground">
                     ${formatPrice(stPrice.estimated_price)}
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    Estimated
+                  <div className={`flex items-center gap-1 text-xs ${stPrice.change24h ? getPriceChangeColor(stPrice.change24h) : 'text-muted-foreground'}`}>
+                    {stPrice.change24h && getPriceChangeIcon(stPrice.change24h)}
+                    <span>{t('prices.estimated')} {stPrice.change24h && `${stPrice.change24h}%`}</span>
                   </div>
                 </>
               ) : (
@@ -196,7 +209,7 @@ export const PriceTracker = () => {
         {(piPrice || stPrice) && !isLoading && (
           <div className="text-center mt-2">
             <span className="text-xs text-muted-foreground/60">
-              Last updated: {new Date().toLocaleTimeString()}
+              {t('prices.lastUpdated')}: {new Date().toLocaleTimeString()}
             </span>
           </div>
         )}
