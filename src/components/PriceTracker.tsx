@@ -18,6 +18,7 @@ export const PriceTracker = () => {
   const [piPrice, setPiPrice] = useState<PiPriceData | null>(null);
   const [stPrice, setStPrice] = useState<StPriceData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isManualRefresh, setIsManualRefresh] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchPiPrice = async () => {
@@ -56,19 +57,30 @@ export const PriceTracker = () => {
     }
   };
 
-  const fetchPrices = async () => {
-    setIsLoading(true);
+  const fetchPrices = async (isManual = false) => {
+    if (isManual) {
+      setIsManualRefresh(true);
+    }
     setError(null);
     
     await Promise.all([fetchPiPrice(), fetchStPrice()]);
+    
+    if (isManual) {
+      setIsManualRefresh(false);
+    }
     setIsLoading(false);
+  };
+
+  const fetchPricesSilently = async () => {
+    setError(null);
+    await Promise.all([fetchPiPrice(), fetchStPrice()]);
   };
 
   useEffect(() => {
     fetchPrices();
     
-    // Update prices every 30 seconds
-    const interval = setInterval(fetchPrices, 30000);
+    // Update prices every 30 seconds silently
+    const interval = setInterval(fetchPricesSilently, 30000);
     
     return () => clearInterval(interval);
   }, []);
@@ -102,11 +114,11 @@ export const PriceTracker = () => {
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-sm font-semibold text-foreground/90">Live Prices</h3>
           <button
-            onClick={fetchPrices}
-            disabled={isLoading}
+            onClick={() => fetchPrices(true)}
+            disabled={isManualRefresh}
             className="p-1.5 rounded-lg hover:bg-muted/50 transition-colors duration-200 disabled:opacity-50"
           >
-            <RefreshCw className={`w-4 h-4 text-muted-foreground ${isLoading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 text-muted-foreground ${isManualRefresh ? 'animate-spin' : ''}`} />
           </button>
         </div>
 
