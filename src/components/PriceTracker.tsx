@@ -43,7 +43,7 @@ export const PriceTracker = () => {
 
   const fetchStPrice = async () => {
     try {
-      const response = await fetch('https://salla-shop.com/wp-json/swap-plugin/v1/pi-price');
+      const response = await fetch('https://salla-shop.com/wp-json/swap-plugin/v1/st-price');
       const data = await response.json();
       
       setStPrice({
@@ -116,6 +116,37 @@ export const PriceTracker = () => {
 
         {/* Price cards */}
         <div className="grid grid-cols-2 gap-3">
+          {/* ST Price Card */}
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-xl blur-sm group-hover:blur-none transition-all duration-300" />
+            <div className="relative bg-background/70 backdrop-blur-md rounded-xl border border-border/30 p-3 hover:border-secondary/30 transition-all duration-300">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-xs font-medium text-secondary">ST</span>
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-secondary to-primary flex items-center justify-center">
+                  <span className="text-[8px] font-bold text-primary-foreground">S</span>
+                </div>
+              </div>
+              
+              {isLoading ? (
+                <div className="space-y-1">
+                  <div className="h-4 bg-muted/50 rounded animate-pulse" />
+                  <div className="h-3 bg-muted/30 rounded animate-pulse w-1/2" />
+                </div>
+              ) : stPrice ? (
+                <>
+                  <div className="text-sm font-bold text-foreground">
+                    ${formatPrice(stPrice.estimated_price)}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    Estimated
+                  </div>
+                </>
+              ) : (
+                <div className="text-xs text-muted-foreground">No data</div>
+              )}
+            </div>
+          </div>
+
           {/* Pi Price Card */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl blur-sm group-hover:blur-none transition-all duration-300" />
@@ -140,37 +171,6 @@ export const PriceTracker = () => {
                   <div className={`flex items-center gap-1 text-xs ${getPriceChangeColor(piPrice.change24h)}`}>
                     {getPriceChangeIcon(piPrice.change24h)}
                     <span>{piPrice.change24h}%</span>
-                  </div>
-                </>
-              ) : (
-                <div className="text-xs text-muted-foreground">No data</div>
-              )}
-            </div>
-          </div>
-
-          {/* ST Price Card */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-br from-secondary/10 to-primary/10 rounded-xl blur-sm group-hover:blur-none transition-all duration-300" />
-            <div className="relative bg-background/70 backdrop-blur-md rounded-xl border border-border/30 p-3 hover:border-secondary/30 transition-all duration-300">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-xs font-medium text-secondary">ST</span>
-                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-secondary to-primary flex items-center justify-center">
-                  <span className="text-[8px] font-bold text-primary-foreground">S</span>
-                </div>
-              </div>
-              
-              {isLoading ? (
-                <div className="space-y-1">
-                  <div className="h-4 bg-muted/50 rounded animate-pulse" />
-                  <div className="h-3 bg-muted/30 rounded animate-pulse w-1/2" />
-                </div>
-              ) : stPrice ? (
-                <>
-                  <div className="text-sm font-bold text-foreground">
-                    ${formatPrice(stPrice.estimated_price)}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Estimated
                   </div>
                 </>
               ) : (
