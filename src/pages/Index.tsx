@@ -8,6 +8,7 @@ import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { BlockchainWelcome } from '@/components/BlockchainWelcome';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { SearchBar } from '@/components/SearchBar';
+import { PriceTracker } from '@/components/PriceTracker';
 import { usePWA } from '@/hooks/usePWA';
 import { useLoading } from '@/hooks/useLoading';
 
@@ -57,6 +58,9 @@ const Index = () => {
           
           {/* Search Bar */}
           <SearchBar />
+          
+          {/* Price Tracker */}
+          <PriceTracker />
           
           {/* Header with app name and settings */}
           <header className="flex items-center justify-between p-6 pt-8">
