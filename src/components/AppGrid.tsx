@@ -12,7 +12,7 @@ export function AppGrid({ onExternalClick }: AppGridProps) {
   const apps = [
     { type: 'mining', key: 'mining', href: 'https://salla-shop.com/mining', useCustomIcon: true, image: '/lovable-uploads/5c3e9ffe-8f37-4bf9-a759-f28ecc772177.png' },
     { type: 'deposit', key: 'deposit', href: 'https://salla-shop.com/tokens-deposit/', useCustomIcon: true, image: '/lovable-uploads/5efbad70-8c28-42f4-999a-e33ba97dd136.png' },
-    { type: 'withdraw', key: 'withdraw', href: 'https://salla-shop.com/st-withdraw/', useCustomIcon: true, image: '/lovable-uploads/9a245025-bc13-4de6-9593-eab6ec20ac92.png' },
+    { type: 'withdraw', key: 'withdraw', href: 'https://salla-shop.com/tokens-withdraw/', useCustomIcon: true, image: '/lovable-uploads/9a245025-bc13-4de6-9593-eab6ec20ac92.png' },
     { type: 'transfer', key: 'transfer', href: 'https://salla-shop.com/st-transfer/', useCustomIcon: true, image: '/lovable-uploads/8532e579-cb11-4528-89ba-5111bdb13006.png' },
     { type: 'payRequest', key: 'payRequest', href: 'https://salla-shop.com/st-pay-request/', useCustomIcon: true, image: '/lovable-uploads/ddaaf2cb-9091-4ea0-86ed-115a98c4cf52.png' },
     { type: 'escrow', key: 'escrow', href: 'https://salla-shop.com/st-escrow/', useCustomIcon: true, image: '/lovable-uploads/5a533289-5d36-4788-bfcd-c3ab0b3eb88b.png' },
