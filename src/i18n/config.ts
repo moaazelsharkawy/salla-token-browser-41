@@ -15,6 +15,7 @@ const resources = {
         mining: "Mining",
         deposit: "Deposit", 
         withdraw: "Withdraw",
+        stQr: "ST QR",
         transfer: "Transfer",
         payRequest: "Pay Request",
         escrow: "Escrow",
@@ -26,7 +27,6 @@ const resources = {
         p2p: "ST P2P",
         kyc: "KYC",
         social: "ST Social",
-        coupons: "Create Coupons",
         piMall: "Pi Mall"
       },
       searchPlaceholder: "Enter URL or search Google...",
@@ -52,6 +52,7 @@ const resources = {
         mining: "التعدين",
         deposit: "إيداع", 
         withdraw: "سحب",
+        stQr: "ST QR",
         transfer: "دفع",
         payRequest: "طلب دفع",
         escrow: "الضمان",
@@ -63,7 +64,6 @@ const resources = {
         p2p: "ST P2P",
         kyc: "KYC",
         social: "ST Social",
-        coupons: "إنشاء الخصم",
         piMall: "مول Pi"
       },
       searchPlaceholder: "أدخل رابط أو ابحث في جوجل...",
