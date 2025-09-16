@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 
 const MIN_FONT_SIZE = 12;
-const MAX_FONT_SIZE = 24;
+const MAX_FONT_SIZE = 18;
 const DEFAULT_FONT_SIZE = 16;
 
 export function useFontSize() {
   const [fontSize, setFontSize] = useState<number>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('fontSize');
-      return saved ? parseInt(saved) : DEFAULT_FONT_SIZE;
+      if (saved && !isNaN(parseInt(saved))) {
+        return parseInt(saved);
+      }
     }
     return DEFAULT_FONT_SIZE;
   });
