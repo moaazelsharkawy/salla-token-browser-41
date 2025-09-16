@@ -1,33 +1,40 @@
 import { useState, useEffect } from 'react';
 
-type FontSize = 'small' | 'medium' | 'large' | 'xlarge';
-
-const fontSizeMap = {
-  small: 14,
-  medium: 16,
-  large: 18,
-  xlarge: 20
-};
+const MIN_FONT_SIZE = 12;
+const MAX_FONT_SIZE = 24;
+const DEFAULT_FONT_SIZE = 16;
 
 export function useFontSize() {
-  const [fontSize, setFontSize] = useState<FontSize>(() => {
+  const [fontSize, setFontSize] = useState<number>(() => {
     if (typeof window !== 'undefined') {
-      return (localStorage.getItem('fontSize') as FontSize) || 'medium';
+      const saved = localStorage.getItem('fontSize');
+      return saved ? parseInt(saved) : DEFAULT_FONT_SIZE;
     }
-    return 'medium';
+    return DEFAULT_FONT_SIZE;
   });
 
   useEffect(() => {
     const root = window.document.documentElement;
-    const sizeInPx = fontSizeMap[fontSize];
     
-    root.style.setProperty('--base-font-size', `${sizeInPx}px`);
-    localStorage.setItem('fontSize', fontSize);
+    // Apply to root font size which affects rem units
+    root.style.fontSize = `${fontSize}px`;
+    
+    // Also set CSS variable for specific components
+    root.style.setProperty('--base-font-size', `${fontSize}px`);
+    
+    localStorage.setItem('fontSize', fontSize.toString());
   }, [fontSize]);
 
-  const changeFontSize = (newSize: FontSize) => {
-    setFontSize(newSize);
+  const changeFontSize = (newSize: number) => {
+    const clampedSize = Math.max(MIN_FONT_SIZE, Math.min(MAX_FONT_SIZE, newSize));
+    setFontSize(clampedSize);
   };
 
-  return { fontSize, changeFontSize, fontSizeMap };
+  return { 
+    fontSize, 
+    changeFontSize, 
+    minSize: MIN_FONT_SIZE, 
+    maxSize: MAX_FONT_SIZE,
+    defaultSize: DEFAULT_FONT_SIZE
+  };
 }

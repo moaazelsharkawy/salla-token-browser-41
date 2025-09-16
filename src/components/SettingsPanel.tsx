@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils';
 export function SettingsPanel() {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
-  const { fontSize, changeFontSize, fontSizeMap } = useFontSize();
+  const { fontSize, changeFontSize, minSize, maxSize, defaultSize } = useFontSize();
   const { user, isAuthenticated, login, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -149,52 +149,53 @@ export function SettingsPanel() {
             </div>
 
             {/* Font Size Section */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               <h3 className="text-lg font-semibold flex items-center gap-2">
                 <Type size={20} className="text-primary" />
                 {i18n.language === 'ar' ? 'حجم الخط' : 'Font Size'}
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <div className="flex justify-between text-sm text-muted-foreground">
                   <span>{i18n.language === 'ar' ? 'صغير' : 'Small'}</span>
+                  <span className="text-primary font-medium">{fontSize}px</span>
                   <span>{i18n.language === 'ar' ? 'كبير' : 'Large'}</span>
                 </div>
-                <div className="grid grid-cols-4 gap-2">
-                  <Button
-                    variant={fontSize === 'small' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => changeFontSize('small')}
-                    className="text-xs transition-all hover:scale-105"
-                  >
-                    {i18n.language === 'ar' ? 'صغير' : 'S'}
-                  </Button>
-                  <Button
-                    variant={fontSize === 'medium' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => changeFontSize('medium')}
-                    className="text-sm transition-all hover:scale-105"
-                  >
-                    {i18n.language === 'ar' ? 'متوسط' : 'M'}
-                  </Button>
-                  <Button
-                    variant={fontSize === 'large' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => changeFontSize('large')}
-                    className="text-base transition-all hover:scale-105"
-                  >
-                    {i18n.language === 'ar' ? 'كبير' : 'L'}
-                  </Button>
-                  <Button
-                    variant={fontSize === 'xlarge' ? 'default' : 'outline'}
-                    size="sm"
-                    onClick={() => changeFontSize('xlarge')}
-                    className="text-lg transition-all hover:scale-105"
-                  >
-                    {i18n.language === 'ar' ? 'كبير جداً' : 'XL'}
-                  </Button>
+                
+                {/* Modern Slider */}
+                <div className="relative">
+                  <Slider
+                    value={[fontSize]}
+                    onValueChange={(value) => changeFontSize(value[0])}
+                    max={maxSize}
+                    min={minSize}
+                    step={1}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground mt-2">
+                    <span>{minSize}</span>
+                    <span>{defaultSize}</span>
+                    <span>{maxSize}</span>
+                  </div>
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  {i18n.language === 'ar' ? 'الحجم الحالي: ' : 'Current: '}{fontSizeMap[fontSize]}px
+                
+                {/* Reset Button */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => changeFontSize(defaultSize)}
+                  className="w-full text-xs transition-all hover:scale-105"
+                >
+                  {i18n.language === 'ar' ? 'إعادة تعيين' : 'Reset to Default'}
+                </Button>
+                
+                {/* Preview Text */}
+                <div className="bg-muted/30 rounded-lg p-3 text-center border border-border/50">
+                  <p className="text-sm text-muted-foreground mb-1">
+                    {i18n.language === 'ar' ? 'معاينة النص:' : 'Text Preview:'}
+                  </p>
+                  <p style={{ fontSize: `${fontSize}px` }} className="font-medium">
+                    {i18n.language === 'ar' ? 'مرحباً بك في سلة' : 'Welcome to Salla'}
+                  </p>
                 </div>
               </div>
             </div>
