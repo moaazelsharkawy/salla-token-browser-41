@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@/hooks/useTheme';
+import { useFontSize } from '@/hooks/useFontSize';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn, LogOut, Palette, Users, User } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
+import { Settings, Sun, Moon, Globe, Github, Facebook, FileText, Send, Bot, LogIn, LogOut, Palette, Users, User, Type } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function SettingsPanel() {
   const { t, i18n } = useTranslation();
   const { theme, toggleTheme } = useTheme();
+  const { fontSize, changeFontSize, fontSizeMap } = useFontSize();
   const { user, isAuthenticated, login, logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -142,6 +145,57 @@ export function SettingsPanel() {
                   <Moon size={16} />
                   {t('darkMode')}
                 </Button>
+              </div>
+            </div>
+
+            {/* Font Size Section */}
+            <div className="space-y-3">
+              <h3 className="text-lg font-semibold flex items-center gap-2">
+                <Type size={20} className="text-primary" />
+                {i18n.language === 'ar' ? 'حجم الخط' : 'Font Size'}
+              </h3>
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm text-muted-foreground">
+                  <span>{i18n.language === 'ar' ? 'صغير' : 'Small'}</span>
+                  <span>{i18n.language === 'ar' ? 'كبير' : 'Large'}</span>
+                </div>
+                <div className="grid grid-cols-4 gap-2">
+                  <Button
+                    variant={fontSize === 'small' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => changeFontSize('small')}
+                    className="text-xs transition-all hover:scale-105"
+                  >
+                    {i18n.language === 'ar' ? 'صغير' : 'S'}
+                  </Button>
+                  <Button
+                    variant={fontSize === 'medium' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => changeFontSize('medium')}
+                    className="text-sm transition-all hover:scale-105"
+                  >
+                    {i18n.language === 'ar' ? 'متوسط' : 'M'}
+                  </Button>
+                  <Button
+                    variant={fontSize === 'large' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => changeFontSize('large')}
+                    className="text-base transition-all hover:scale-105"
+                  >
+                    {i18n.language === 'ar' ? 'كبير' : 'L'}
+                  </Button>
+                  <Button
+                    variant={fontSize === 'xlarge' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => changeFontSize('xlarge')}
+                    className="text-lg transition-all hover:scale-105"
+                  >
+                    {i18n.language === 'ar' ? 'كبير جداً' : 'XL'}
+                  </Button>
+                </div>
+                <div className="text-center text-sm text-muted-foreground">
+                  {i18n.language === 'ar' ? 'الحجم الحالي: ' : 'Current: '}{fontSizeMap[fontSize]}px
+                </div>
               </div>
             </div>
 

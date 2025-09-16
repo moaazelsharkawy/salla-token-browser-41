@@ -8,6 +8,9 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Font Size Setting - إعداد حجم الخط */
+    --base-font-size: 16px;
+    
     /* Primary Salla Colors - ألوان سلة الأساسية */
     --background: 45 100% 97%;
     --foreground: 220 25% 15%;
@@ -138,6 +141,7 @@ All colors MUST be HSL.
     transition: var(--transition-smooth);
     direction: var(--direction, ltr);
     font-feature-settings: 'kern' 1, 'liga' 1;
+    font-size: var(--base-font-size);
     
     /* Lock screen orientation to portrait - منع الدوران التلقائي */
     transform-origin: center center;
