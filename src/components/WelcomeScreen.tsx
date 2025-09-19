@@ -42,33 +42,66 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center p-6">
-      <div className="text-center text-white max-w-md w-full animate-in fade-in duration-1000">
-        {/* Logo Animation */}
-        <div className="mb-8 relative">
-            <div className="w-32 h-32 mx-auto mb-6 relative">
-            {/* Rotating border effect */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 animate-spin" style={{ animationDuration: '3s' }} />
-            <div className="absolute inset-1 bg-gradient-to-br from-yellow-400/20 to-yellow-600/20 rounded-full backdrop-blur-sm" />
-            <div className="relative w-full h-full p-3">
+    <div className="fixed inset-0 z-50 bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center p-6 overflow-hidden">
+      {/* Blockchain Grid Background */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-1 h-full w-full animate-pulse">
+          {[...Array(192)].map((_, i) => (
+            <div
+              key={i}
+              className={`border border-white/20 ${
+                i % 7 === 0 ? 'bg-primary/30 animate-pulse' : 
+                i % 11 === 0 ? 'bg-secondary/30 animate-ping' :
+                i % 13 === 0 ? 'bg-accent/30 animate-bounce' : ''
+              }`}
+              style={{
+                animationDelay: `${(i * 100) % 3000}ms`,
+                animationDuration: `${2000 + (i * 50) % 1000}ms`
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="relative z-10 text-center text-white max-w-lg w-full animate-in fade-in duration-1000">
+        {/* Enhanced Logo Animation */}
+        <div className="mb-12 relative">
+          <div className="w-40 h-40 mx-auto mb-8 relative">
+            {/* Multiple rotating rings */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-accent to-secondary animate-spin" style={{ animationDuration: '8s' }} />
+            <div className="absolute inset-2 rounded-full bg-gradient-to-l from-secondary via-primary to-accent animate-spin" style={{ animationDuration: '6s', animationDirection: 'reverse' }} />
+            <div className="absolute inset-4 bg-gradient-to-br from-background/90 to-background/80 rounded-full backdrop-blur-lg border border-white/30" />
+            
+            <div className="relative w-full h-full p-6 flex items-center justify-center">
               <img 
                 src="/lovable-uploads/9566e7f9-372e-4144-a8ec-f58a9132e6d0.png" 
                 alt="Salla Token Logo"
-                className="w-full h-full object-contain drop-shadow-2xl"
+                className="w-24 h-24 object-contain drop-shadow-2xl animate-pulse"
               />
             </div>
           </div>
           
-          {/* Floating Elements */}
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-8">
-            <div className="w-3 h-3 bg-white/40 rounded-full animate-ping" />
+          {/* Enhanced Floating Network Nodes */}
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+            <div className="w-4 h-4 bg-primary rounded-full animate-ping" />
           </div>
-          <div className="absolute top-8 right-1/4">
-            <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse delay-300" />
+          <div className="absolute top-4 -right-8">
+            <div className="w-3 h-3 bg-secondary rounded-full animate-pulse delay-300" />
           </div>
-          <div className="absolute top-8 left-1/4">
-            <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse delay-700" />
+          <div className="absolute top-4 -left-8">
+            <div className="w-3 h-3 bg-accent rounded-full animate-pulse delay-700" />
           </div>
+          <div className="absolute -bottom-4 right-1/4">
+            <div className="w-2 h-2 bg-primary/80 rounded-full animate-bounce delay-1000" />
+          </div>
+          <div className="absolute -bottom-4 left-1/4">
+            <div className="w-2 h-2 bg-secondary/80 rounded-full animate-bounce delay-1200" />
+          </div>
+          
+          {/* Connection Lines */}
+          <div className="absolute top-8 left-1/2 w-px h-16 bg-gradient-to-b from-white/60 to-transparent animate-pulse" />
+          <div className="absolute top-1/2 left-8 w-16 h-px bg-gradient-to-r from-white/60 to-transparent animate-pulse delay-500" />
+          <div className="absolute top-1/2 right-8 w-16 h-px bg-gradient-to-l from-white/60 to-transparent animate-pulse delay-1000" />
         </div>
 
         {/* Content */}
@@ -96,24 +129,37 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             </>
           )}
 
-          {/* Phantom Wallet Recommendation */}
+          {/* Enhanced Phantom Wallet Recommendation */}
           {currentStep === 1 && (
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mb-8 border border-white/20">
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <Wallet className="w-8 h-8 text-white" />
-                <span className="text-xl font-semibold">phantom wallet recommendation</span>
+            <div className="bg-gradient-to-r from-white/10 via-white/15 to-white/10 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/30 shadow-2xl animate-in scale-in duration-500">
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="p-3 bg-white/20 rounded-full animate-pulse">
+                  <Wallet className="w-8 h-8 text-white" />
+                </div>
+                <div className="text-center">
+                  <h3 className="text-xl font-bold text-white mb-1">Phantom Wallet</h3>
+                  <p className="text-white/80 text-sm">Recommended</p>
+                </div>
               </div>
-              <p className="text-white/90 text-sm leading-relaxed mb-2">
-                محفظة آمنة وسهلة الاستخدام لشبكة سولانا، متوفرة كتطبيق موبايل وإضافة متصفح
-              </p>
-              <p className="text-white/80 text-xs leading-relaxed mb-4">
-                Secure and user-friendly Solana wallet, available as mobile app and browser extension
-              </p>
+              
+              <div className="space-y-4 mb-6">
+                <p className="text-white/95 text-base leading-relaxed font-medium">
+                  محفظة آمنة وسهلة الاستخدام لشبكة سولانا
+                </p>
+                <p className="text-white/85 text-sm leading-relaxed">
+                  متوفرة كتطبيق موبايل وإضافة متصفح
+                </p>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  Secure and user-friendly Solana wallet, available as mobile app and browser extension
+                </p>
+              </div>
+              
               <Button
                 onClick={() => window.open('https://phantom.com/', '_blank')}
-                size="sm"
-                className="bg-white/20 text-white hover:bg-white/30 border border-white/30 backdrop-blur-sm font-medium"
+                size="lg"
+                className="w-full bg-gradient-to-r from-white/25 to-white/20 text-white hover:from-white/35 hover:to-white/30 border border-white/40 backdrop-blur-sm font-semibold py-3 rounded-2xl transition-all duration-300 hover:scale-105 shadow-lg"
               >
+                <Wallet className="w-5 h-5 mr-2" />
                 Download Phantom
               </Button>
             </div>
