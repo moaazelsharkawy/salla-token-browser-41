@@ -179,7 +179,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
 
           {/* Continue Button */}
           {currentStep === steps.length - 1 && (
-            <div className="fixed bottom-24 left-1/2 transform -translate-x-1/2 z-10">
+            <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2 z-10">
               <Button
                 onClick={handleContinue}
                 size="lg"
