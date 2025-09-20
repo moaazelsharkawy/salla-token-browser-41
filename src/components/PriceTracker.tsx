@@ -46,7 +46,7 @@ export const PriceTracker = () => {
 
   const fetchStPrice = async () => {
     try {
-      const response = await fetch('https://salla-shop.com/wp-json/swap-plugin/v1/st-price');
+      const response = await fetch('https://sallanet.com/wp-json/swap-plugin/v1/st-price');
       const data = await response.json();
       
       const currentPrice = parseFloat(data.estimated_price || data.price || '0');
