@@ -20,7 +20,7 @@ export const useAuth = () => {
     if (token) {
       try {
         // إرسال طلب API باستخدام التوكن
-        const response = await fetch('https://salla-shop.com/wp-json/myplugin/v1/user', {
+        const response = await fetch('https://sallanet.com/wp-json/myplugin/v1/user', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const useAuth = () => {
   };
 
   const login = () => {
-    window.open('https://salla-shop.com/my-account/', '_blank');
+    window.open('https://sallanet.com/login/', '_blank');
   };
 
   useEffect(() => {
