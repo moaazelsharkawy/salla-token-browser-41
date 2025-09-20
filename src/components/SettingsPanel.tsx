@@ -209,7 +209,7 @@ export function SettingsPanel() {
               <Button
                 variant="outline"
                 className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-                onClick={() => window.open('https://paper.salla-shop.com', '_blank')}
+                onClick={() => window.open('https://paper.sallanet.com/', '_blank')}
               >
                 <FileText size={16} />
                 {i18n.language === 'ar' ? 'الورقة البيضاء' : 'White Paper'}
