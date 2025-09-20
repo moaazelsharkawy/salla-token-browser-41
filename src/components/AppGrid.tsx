@@ -20,7 +20,7 @@ export function AppGrid({ onExternalClick }: AppGridProps) {
     { type: 'explorer', key: 'explorer', href: 'https://sallanet.com/st-explorer/', useCustomIcon: true, image: '/lovable-uploads/832e9ce6-d367-4ff8-9148-212144eccca8.png' },
     { type: 'swap', key: 'swap', href: 'https://sallanet.com/liquidity-pool/', useCustomIcon: true, image: '/lovable-uploads/bf1e7843-c5c5-4cfb-b2ae-835a9b40b952.png' },
     { type: 'virtualCards', key: 'virtualCards', href: 'https://sallanet.com/st-vpc/', useCustomIcon: true, image: '/lovable-uploads/28ed21c9-2da4-4633-9ed1-f2478e57902d.png' },
-    { type: 'developerApi', key: 'developerApi', href: 'https://salla-shop.com/salla-developer/', useCustomIcon: true, image: '/lovable-uploads/9fbe103d-21f9-4b2b-8cd4-beb6cc579a0f.png' },
+    { type: 'developerApi', key: 'developerApi', href: 'https://sallanet.com/merchant-wallet/', useCustomIcon: true, image: '/lovable-uploads/9fbe103d-21f9-4b2b-8cd4-beb6cc579a0f.png' },
     { type: 'commerce', key: 'commerce', href: 'https://salla-shop.com/st-e-commerce/', useCustomIcon: true, image: '/lovable-uploads/d61dec61-2cf6-45c2-96cb-1f1a964c5bff.png' },
     { type: 'p2p', key: 'p2p', href: 'https://salla-shop.com/st-p2p/', useCustomIcon: true, image: '/lovable-uploads/f5abe280-f5e6-4350-b2f9-c09e975fffa8.png' },
     { type: 'kyc', key: 'kyc', href: 'https://salla-shop.com/kyc/', useCustomIcon: true, image: '/lovable-uploads/28d7ec75-6696-429d-83ec-c126abb7649a.png' },
