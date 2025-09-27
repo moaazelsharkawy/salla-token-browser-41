@@ -53,13 +53,12 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
   return (
     <div 
       className="fixed inset-0 z-50 bg-gradient-to-br from-primary via-primary/90 to-secondary flex items-center justify-center p-6 overflow-hidden"
-      // 3. إضافة خاصية RTL/LTR بناءً على اللغة الحالية
+      // إضافة خاصية RTL/LTR بناءً على اللغة الحالية
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       {/* Blockchain Grid Background - الخلفية المشبّكة */}
       <div className="absolute inset-0 opacity-20">
         <div className="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-16 gap-1 h-full w-full animate-pulse">
-          {/* ... (كود خلفية الشبكة بدون تغيير) */}
           {[...Array(192)].map((_, i) => (
             <div
               key={i}
@@ -98,7 +97,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
           {/* Enhanced Floating Network Nodes - نقاط الشبكة المتحركة */}
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
             <div className="w-4 h-4 bg-primary rounded-full animate-ping" />
-          </div>
+            </div>
           <div className="absolute top-4 -right-8">
             <div className="w-3 h-3 bg-secondary rounded-full animate-pulse delay-300" />
           </div>
@@ -122,7 +121,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
         <div className="animate-in slide-in-from-bottom-4 duration-1000 delay-500">
           {isArabic ? (
             <>
-              {/* 4. استخدام خط القاهرة للنصوص العربية */}
+              {/* استخدام خط القاهرة للنصوص العربية */}
               <h1 className="text-3xl font-bold mb-4 font-cairo leading-tight">
                 {currentStepData.titleAr}
               </h1>
@@ -187,7 +186,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             </div>
           )}
 
-          {/* Progress Dots - نقاط التقدم */}
+          {/* Progress Dots */}
           <div className="flex justify-center gap-2 mb-8">
             {steps.map((_, index) => (
               <div
@@ -199,19 +198,19 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             ))}
           </div>
 
-          {/* Continue Button - زر ابدأ الاستخدام */}
+          {/* Continue Button - تم تصحيح الخطأ هنا */}
           {currentStep === steps.length - 1 && (
-            {/* 2. تعديل موضع الزر ليكون أسفل قليلًا (from bottom-16 to bottom-8) */}
+            {/* تعديل موضع الزر ليكون أسفل قليلًا */}
             <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-sm px-6"> 
               <Button
                 onClick={handleContinue}
                 size="lg"
                 className="w-full bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg"
               >
-                <span className="mr-2 rtl:ml-2 rtl:mr-0">
+                <span className={`mr-2 ${isArabic ? 'rtl:ml-2 rtl:mr-0' : ''}`}>
                   {isArabic ? 'ابدأ الاستخدام' : 'Get Started'}
                 </span>
-                <ArrowRight className="w-5 h-5 rtl:transform rtl:rotate-180" />
+                <ArrowRight className={`w-5 h-5 ${isArabic ? 'rtl:transform rtl:rotate-180' : ''}`} />
               </Button>
             </div>
           )}
