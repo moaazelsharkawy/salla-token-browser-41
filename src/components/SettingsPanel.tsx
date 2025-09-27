@@ -65,7 +65,7 @@ export function SettingsPanel() {
                 ) : (
                   <>
                     <LogIn size={20} className="text-primary" />
-                    {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
+                    {i18n.language === 'ar' ? 'الحساب' : 'Login'}
                   </>
                 )}
               </h3>
