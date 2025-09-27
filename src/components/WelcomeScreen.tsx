@@ -63,7 +63,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             <div
               key={i}
               className={`border border-white/20 ${
-                i % 7 === 0 ? 'bg-primary/30 animate-pulse' : 
+                i % 7 === 0 ? 'bg-primary/30 animate-pulse' :
                 i % 11 === 0 ? 'bg-secondary/30 animate-ping' :
                 i % 13 === 0 ? 'bg-accent/30 animate-bounce' : ''
               }`}
@@ -97,7 +97,7 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
           {/* Enhanced Floating Network Nodes - نقاط الشبكة المتحركة */}
           <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
             <div className="w-4 h-4 bg-primary rounded-full animate-ping" />
-            </div>
+          </div>
           <div className="absolute top-4 -right-8">
             <div className="w-3 h-3 bg-secondary rounded-full animate-pulse delay-300" />
           </div>
@@ -198,9 +198,9 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             ))}
           </div>
 
-          {/* Continue Button - تم تصحيح الخطأ هنا */}
+          {/* Continue Button */}
+          {/* تعليق التوضيح موضوع فوق التعبير لكي لا يكسر JSX */}
           {currentStep === steps.length - 1 && (
-            {/* تعديل موضع الزر ليكون أسفل قليلًا */}
             <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-sm px-6">
               <Button
                 onClick={handleContinue}
@@ -210,7 +210,8 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
                 <span className={`mr-2 ${isArabic ? 'rtl:ml-2 rtl:mr-0' : ''}`}>
                   {isArabic ? 'ابدأ الاستخدام' : 'Get Started'}
                 </span>
-                <ArrowRight className={`w-5 h-5 ${isArabic ? 'rtl:transform rtl:rotate-180' : ''}`} />
+                {/* لف الأيقونة أفقيًا عند العربية */}
+                <ArrowRight className={`w-5 h-5 ${isArabic ? 'rotate-180' : ''}`} />
               </Button>
             </div>
           )}
