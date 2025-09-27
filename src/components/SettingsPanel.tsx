@@ -60,12 +60,12 @@ export function SettingsPanel() {
                 {isAuthenticated ? (
                   <>
                     <User size={20} className="text-primary" />
-                    {i18n.language === 'ar' ? 'الحساب' : 'Account'}
+                    {i18n.language === 'ar' ? 'حسابي' : 'Account'}
                   </>
                 ) : (
                   <>
                     <LogIn size={20} className="text-primary" />
-                    {i18n.language === 'ar' ? 'الحساب' : 'Login'}
+                    {i18n.language === 'ar' ? 'تسجيل الدخول' : 'Login'}
                   </>
                 )}
               </h3>
