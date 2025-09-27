@@ -93,7 +93,7 @@ export function SettingsPanel() {
                   onClick={login}
                 >
                   <LogIn size={16} />
-                  {i18n.language === 'ar' ? 'الحساب ' : 'Login'}
+                  {i18n.language === 'ar' ? 'تسجيل الدخول ' : 'Login'}
                 </Button>
               )}
             </div>
