@@ -10,7 +10,7 @@ export const getCSPDirectives = () => {
     'style-src': "'self' 'unsafe-inline'", // Allow inline styles for CSS-in-JS
     'img-src': "'self' data: https:", // Allow images from same origin, data URLs, and HTTPS
     'font-src': "'self' https:", // Allow fonts from same origin and HTTPS
-    'connect-src': "'self' https://salla-shop.com", // Allow connections to API endpoints
+    'connect-src': "'self' https://sallanet.com", // Allow connections to API endpoints
     'frame-ancestors': "'none'", // Prevent clickjacking
     'base-uri': "'self'", // Restrict base tag URLs
     'form-action': "'self'", // Restrict form submissions
