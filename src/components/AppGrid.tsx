@@ -19,7 +19,6 @@ export function AppGrid({ onExternalClick }: AppGridProps) {
     { type: 'escrow', key: 'escrow', href: 'https://sallanet.com/escrow/', useCustomIcon: true, image: '/lovable-uploads/5a533289-5d36-4788-bfcd-c3ab0b3eb88b.png' },
     { type: 'explorer', key: 'explorer', href: 'https://sallanet.com/st-explorer/', useCustomIcon: true, image: '/lovable-uploads/832e9ce6-d367-4ff8-9148-212144eccca8.png' },
     { type: 'swap', key: 'swap', href: 'https://sallanet.com/liquidity-pool/', useCustomIcon: true, image: '/lovable-uploads/bf1e7843-c5c5-4cfb-b2ae-835a9b40b952.png' },
-    { type: 'ico', key: 'ico', href: 'https://sallanet.com/ico/', useCustomIcon: true, image: '/lovable-uploads/ico-icon.png' },
     { type: 'virtualCards', key: 'virtualCards', href: 'https://sallanet.com/st-vpc/', useCustomIcon: true, image: '/lovable-uploads/28ed21c9-2da4-4633-9ed1-f2478e57902d.png' },
     { type: 'developerApi', key: 'developerApi', href: 'https://sallanet.com/merchant-wallet/', useCustomIcon: true, image: '/lovable-uploads/9fbe103d-21f9-4b2b-8cd4-beb6cc579a0f.png' },
     { type: 'commerce', key: 'commerce', href: 'https://sallanet.com/st-commerce/', useCustomIcon: true, image: '/lovable-uploads/d61dec61-2cf6-45c2-96cb-1f1a964c5bff.png' },

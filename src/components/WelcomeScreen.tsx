@@ -63,9 +63,9 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
         </div>
       </div>
 
-      <div className="relative z-10 text-center text-white max-w-lg w-full animate-in fade-in duration-1000 max-h-screen overflow-y-auto">
-        {/* Enhanced Logo Animation */}
-        <div className="mb-8 relative">
+      <div className="relative z-10 text-center text-white max-w-lg w-full animate-in fade-in duration-1000">
+        {/* Enhanced Logo Animation */}
+        <div className="mb-12 relative">
           <div className="w-40 h-40 mx-auto mb-8 relative">
             {/* Multiple rotating rings */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-accent to-secondary animate-spin" style={{ animationDuration: '8s' }} />
@@ -129,9 +129,9 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             </>
           )}
 
-          {/* Enhanced Phantom Wallet Recommendation */}
-          {currentStep === 1 && (
-            <div className="bg-gradient-to-r from-white/10 via-white/15 to-white/10 backdrop-blur-md rounded-3xl p-6 mb-6 border border-white/30 shadow-2xl animate-in scale-in duration-500">
+          {/* Enhanced Phantom Wallet Recommendation */}
+          {currentStep === 1 && (
+            <div className="bg-gradient-to-r from-white/10 via-white/15 to-white/10 backdrop-blur-md rounded-3xl p-8 mb-8 border border-white/30 shadow-2xl animate-in scale-in duration-500">
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="p-3 bg-white/20 rounded-full animate-pulse">
                   <Wallet className="w-8 h-8 text-white" />
@@ -177,21 +177,21 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             ))}
           </div>
 
-          {/* Continue Button - مهبط للأسفل */}
-          {currentStep === steps.length - 1 && (
-            <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2 z-10">
-              <Button
-                onClick={handleContinue}
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg"
-              >
-                <span className="mr-2">
-                  {i18n.language === 'ar' ? 'ابدأ الاستخدام' : 'Get Started'}
-                </span>
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </div>
-          )}
+          {/* Continue Button */}
+          {currentStep === steps.length - 1 && (
+            <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-10">
+              <Button
+                onClick={handleContinue}
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg"
+              >
+                <span className="mr-2">
+                  {i18n.language === 'ar' ? 'ابدأ الاستخدام' : 'Get Started'}
+                </span>
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

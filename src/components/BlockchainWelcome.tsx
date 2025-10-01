@@ -35,11 +35,11 @@ const Node = ({ position, index }: { position: [number, number, number], index: 
     return '#a855f7'; // Purple-500
   }, [index]);
 
-  return (
-    <Sphere position={position} args={[0.1, 16, 16]} ref={ref}>
-      <meshBasicMaterial color={color} toneMapped={false} />
-    </Sphere>
-  );
+  return (
+    <Sphere position={position} args={[0.1, 16, 16]} ref={ref}>
+      <meshBasicMaterial color={color} toneMapped={false} emissive={color} emissiveIntensity={0.5} />
+    </Sphere>
+  );
 };
 
 // المكون الرئيسي للشبكة ثلاثية الأبعاد
@@ -114,90 +114,96 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
 
   if (!isVisible) return null;
 
-  return (
-    <div 
-      className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900 via-indigo-900 to-black flex items-center justify-center p-4 overflow-hidden"
-      dir={isArabic ? 'rtl' : 'ltr'}
-    >
-      {/* شبكة البلوكتشين ثلاثية الأبعاد */}
-      <div className="absolute inset-0 opacity-70">
-        <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} intensity={0.8} color="#a855f7" />
-          <pointLight position={[-10, -10, -10]} intensity={0.6} color="#22c55e" />
-          <BlockchainNetwork3D />
-        </Canvas>
-      </div>
-      
-      {/* محتوى الواجهة */}
-      <div className="relative z-10 text-center text-white max-w-md w-full animate-in fade-in duration-1000">
-        {/* شعار مدمج */}
-        <div className="mb-4 relative">
-          <div className="w-24 h-24 mx-auto mb-3 relative">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 animate-spin" style={{ animationDuration: '4s' }} />
-            <div className="absolute inset-1 bg-gradient-to-br from-purple-900/90 to-indigo-900/80 rounded-full backdrop-blur-lg border border-white/30" />
-            
-            <div className="relative w-full h-full p-2 flex items-center justify-center">
-              <div className="w-14 h-14 relative">
-                <img 
-                  src="/lovable-uploads/7d1f02d5-8a29-4ef8-aebb-2031f0b36009.png" 
-                  alt="Salla Token" 
-                  className="w-full h-full object-contain drop-shadow-xl"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+  return (
+    <div 
+      className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900 via-indigo-900 to-black flex items-center justify-center p-4 overflow-hidden"
+      dir={isArabic ? 'rtl' : 'ltr'}
+    >
+      {/* 1. دمج شبكة البلوكتشين ثلاثية الأبعاد */}
+      <div className="absolute inset-0 opacity-80">
+        <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#a855f7" />
+          <pointLight position={[-10, -10, -10]} intensity={0.8} color="#22c55e" />
+          <BlockchainNetwork3D />
+        </Canvas>
+      </div>
+      
+      {/* 2. محتوى الواجهة الأمامي (Overlay) */}
+      <div className="relative z-10 text-center text-white max-w-lg w-full animate-in fade-in duration-1000 bg-black/30 backdrop-blur-sm p-6 rounded-3xl border border-white/20 shadow-2xl">
+        {/* Compact Logo Animation - (يمكن استبداله بشعار سلة) */}
+        <div className="mb-6 relative">
+          <div className="w-28 h-28 mx-auto mb-4 relative">
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 animate-spin" style={{ animationDuration: '4s' }} />
+            <div className="absolute inset-1 bg-gradient-to-br from-purple-900/90 to-indigo-900/80 rounded-full backdrop-blur-lg border border-white/30" />
+            
+            <div className="relative w-full h-full p-3 flex items-center justify-center">
+              <div className="w-16 h-16 relative">
+                <img 
+                  src="/lovable-uploads/7d1f02d5-8a29-4ef8-aebb-2031f0b36009.png" 
+                  alt="Salla Token" 
+                  className="w-full h-full object-contain drop-shadow-xl"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
 
-        {/* المحتوى */}
-        <div className="animate-in slide-in-from-bottom-4 duration-1000 delay-500 bg-black/20 backdrop-blur-md p-5 rounded-2xl border border-white/20">
-          <h1 className={`text-xl font-bold mb-2 leading-tight ${isArabic ? 'font-cairo' : ''}`}>
-            {isArabic 
-              ? 'مبنية على شبكة سولانا' 
-              : 'Built on Solana Blockchain'
-            }
-          </h1>
-          
-          <p className={`text-sm text-white/90 mb-4 leading-relaxed ${isArabic ? 'font-cairo' : ''}`}>
-            {isArabic
-              ? 'شبكة بلوكتشين فائقة السرعة تدعم المدفوعات السريعة والآمنة'
-              : 'Ultra-fast blockchain network supporting quick and secure payments'
-            }
-          </p>
+        {/* Compact Content */}
+        <div className="animate-in slide-in-from-bottom-4 duration-1000 delay-500">
+          <h1 className={`text-2xl font-bold mb-3 leading-tight ${isArabic ? 'font-cairo' : ''}`}>
+            {isArabic 
+              ? 'مبنية على شبكة سولانا' 
+              : 'Built on Solana Blockchain'
+            }
+          </h1>
+          
+          <p className={`text-base text-white/90 mb-6 leading-relaxed ${isArabic ? 'font-cairo' : ''}`}>
+            {isArabic
+              ? 'شبكة بلوكتشين فائقة السرعة تدعم المدفوعات السريعة والآمنة'
+              : 'Ultra-fast blockchain network supporting quick and secure payments'
+            }
+          </p>
 
-          {/* المميزات المدمجة */}
-          <div className="space-y-2 mb-4">
-            {[{ icon: Zap, titleAr: 'سرعة فائقة', titleEn: 'Ultra Fast', color: 'text-yellow-400' },
-             { icon: Globe, titleAr: 'رسوم منخفضة', titleEn: 'Low Fees', color: 'text-green-400' },
-             { icon: Shield, titleAr: 'أمان عالي', titleEn: 'High Security', color: 'text-blue-400' }
-            ].map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <div key={index} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg p-2">
-                  <Icon className={`w-4 h-4 ${feature.color}`} />
-                  <p className={`text-xs font-semibold flex-1 ${isArabic ? 'text-right font-cairo' : 'text-left'}`}>
-                    {isArabic ? feature.titleAr : feature.titleEn}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+          {/* Compact Features */}
+          <div className="space-y-3 mb-6">
+            {/* Note: Added rtl support to features section */}
+            {[{ icon: Zap, titleAr: 'سرعة فائقة', titleEn: 'Ultra Fast', subtitleAr: 'معاملات في أقل من ثانية', subtitleEn: 'Transactions in under a second', color: 'yellow' },
+             { icon: Globe, titleAr: 'رسوم منخفضة', titleEn: 'Low Fees', subtitleAr: 'تكلفة أقل من سنت واحد', subtitleEn: 'Less than a cent per transaction', color: 'green' },
+             { icon: Shield, titleAr: 'أمان عالي', titleEn: 'High Security', subtitleAr: 'حماية متقدمة للأموال', subtitleEn: 'Advanced fund protection', color: 'blue' }
+            ].map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <div key={index} className="flex items-center gap-3 bg-gradient-to-r from-white/15 to-white/10 backdrop-blur-md rounded-xl p-4 border border-white/30 shadow-lg">
+                  <div className={`p-2 bg-${feature.color}-400/20 rounded-lg`}>
+                    <Icon className={`w-5 h-5 text-${feature.color}-400`} />
+                  </div>
+                  <div className={`flex-1 ${isArabic ? 'text-right' : 'text-left'}`}>
+                    <p className={`font-semibold text-sm mb-1 ${isArabic ? 'font-cairo' : ''}`}>
+                      {isArabic ? feature.titleAr : feature.titleEn}
+                    </p>
+                    <p className={`text-xs text-white/80 ${isArabic ? 'font-cairo' : ''}`}>
+                      {isArabic ? feature.subtitleAr : feature.subtitleEn}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-        {/* زر المتابعة - مهبط للأسفل */}
-        <div className="mt-6">
-          <Button
-            onClick={handleContinue}
-            size="lg"
-            className="w-full bg-white text-purple-700 hover:bg-white/90 font-semibold px-6 py-3 rounded-xl transition-all duration-300 hover:scale-105 shadow-lg"
-          >
-            <span className={isArabic ? 'font-cairo' : ''}>
-              {isArabic ? 'التالي' : 'Continue'}
-            </span>
-            <ArrowRight className={`w-5 h-5 ${isArabic ? 'mr-2 rtl:ml-2 rtl:mr-0 rtl:rotate-180' : 'ml-2'}`} />
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
+          {/* Continue Button */}
+          <Button
+            onClick={handleContinue}
+            size="lg"
+            className="w-full bg-white text-purple-700 hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg mt-6"
+          >
+            <span className={`mr-2 ${isArabic ? 'rtl:ml-2 rtl:mr-0' : ''}`}>
+              {isArabic ? 'التالي' : 'Continue'}
+            </span>
+            <ArrowRight className={`w-5 h-5 ${isArabic ? 'rtl:transform rtl:rotate-180' : ''}`} />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 };
