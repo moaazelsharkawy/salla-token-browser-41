@@ -2,68 +2,88 @@ import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Globe, Shield } from 'lucide-react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Line } from '@react-three/drei';
+import { Sphere, Cylinder } from '@react-three/drei';
 
 interface BlockchainWelcomeProps {
   onComplete: () => void;
 }
 
-// Spider Web Component
-function SpiderWeb() {
+interface EdgeProps {
+  start: [number, number, number];
+  end: [number, number, number];
+}
+
+// Edge Component
+function Edge({ start, end }: EdgeProps) {
+  const mid: [number, number, number] = [
+    (start[0] + end[0]) / 2,
+    (start[1] + end[1]) / 2,
+    (start[2] + end[2]) / 2,
+  ];
+
+  const dir = [
+    end[0] - start[0],
+    end[1] - start[1],
+    end[2] - start[2],
+  ];
+  const len = Math.sqrt(dir[0] ** 2 + dir[1] ** 2 + dir[2] ** 2);
+
+  const orientation: [number, number, number] = [
+    Math.atan2(dir[1], dir[0]), 
+    Math.acos(dir[2] / len), 
+    0
+  ];
+
+  return (
+    <group>
+      <Cylinder
+        args={[0.05, 0.05, len, 16]}
+        position={mid}
+        rotation={orientation}
+      >
+        <meshStandardMaterial color="white" />
+      </Cylinder>
+
+      <Sphere args={[0.1, 32, 32]} position={start}>
+        <meshStandardMaterial color="cyan" />
+      </Sphere>
+      <Sphere args={[0.1, 32, 32]} position={end}>
+        <meshStandardMaterial color="cyan" />
+      </Sphere>
+    </group>
+  );
+}
+
+// Network Component
+function Network() {
   const group = useRef<any>();
 
   useFrame(() => {
     if (group.current) {
-      group.current.rotation.z += 0.001;
+      group.current.rotation.y += 0.002;
     }
   });
 
-  const circles = [];
-  const spokes = [];
-  const rings = 6;
-  const spokesCount = 12;
+  const nodes: [number, number, number][] = [
+    [0, 0, 0],
+    [1.5, 1, -0.5],
+    [-1, 1.2, 1],
+    [2, -1, 0.5],
+    [-1.5, -1, -1],
+  ];
 
-  // Generate circles
-  for (let i = 1; i <= rings; i++) {
-    const radius = i * 0.5;
-    const points = [];
-    for (let j = 0; j <= 64; j++) {
-      const angle = (j / 64) * Math.PI * 2;
-      points.push([Math.cos(angle) * radius, Math.sin(angle) * radius, 0]);
-    }
-    circles.push(points);
-  }
-
-  // Generate spokes
-  for (let i = 0; i < spokesCount; i++) {
-    const angle = (i / spokesCount) * Math.PI * 2;
-    spokes.push([
-      [0, 0, 0],
-      [Math.cos(angle) * rings * 0.5, Math.sin(angle) * rings * 0.5, 0],
-    ]);
-  }
+  const edges: [[number, number, number], [number, number, number]][] = [
+    [nodes[0], nodes[1]],
+    [nodes[0], nodes[2]],
+    [nodes[1], nodes[3]],
+    [nodes[2], nodes[4]],
+    [nodes[3], nodes[4]],
+  ];
 
   return (
     <group ref={group}>
-      {circles.map((points, i) => (
-        <Line
-          key={i}
-          points={points}
-          color="white"
-          lineWidth={1}
-          transparent
-          opacity={0.3}
-        />
-      ))}
-      {spokes.map((points, i) => (
-        <Line
-          key={`spoke-${i}`}
-          points={points}
-          color="white"
-          lineWidth={1}
-          transparent
-          opacity={0.5}
-        />
+      {edges.map(([a, b], i) => (
+        <Edge key={i} start={a} end={b} />
       ))}
     </group>
   );
@@ -81,10 +101,12 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-br from-purple-900 via-indigo-900 to-black flex items-center justify-center p-4 overflow-hidden">
-      {/* Spider Web Background */}
+      {/* Network Background */}
       <div className="absolute inset-0 opacity-60">
-        <Canvas camera={{ position: [0, 0, 5] }}>
-          <SpiderWeb />
+        <Canvas camera={{ position: [0, 0, 6] }}>
+          <ambientLight intensity={0.4} />
+          <pointLight position={[5, 5, 5]} />
+          <Network />
         </Canvas>
       </div>
       
