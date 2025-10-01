@@ -6,11 +6,26 @@ import * as THREE from 'three';
 
 interface BlockchainWelcomeProps {
   onComplete: () => void;
+  nodeCount?: number; // عدد العقد (الكرات)
+  connectionProbability?: number; // احتمال وجود وصلة بين كل زوج (0..1) -> يتحكم في الكثافة
+  thickness?: number; // سمك الخط (radius للـ cylinder)
+  seed?: number; // اختياري: لبذر المولد العشوائي عشان تكرر نفس الشبكة
 }
 
 interface EdgeProps {
   start: [number, number, number];
   end: [number, number, number];
+  thickness: number;
+}
+
+// بسيط PRNG deterministic لو عايز seed
+function mulberry32(a: number) {
+  return function () {
+    let t = (a += 0x6d2b79f5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
 }
 
 // ===== Node (Sphere) with small pulse =====
@@ -19,20 +34,20 @@ function Node({ position, seed = 0 }: { position: [number, number, number]; seed
 
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
-    const scale = 1 + 0.08 * Math.sin(t * 2 + seed);
+    const scale = 1 + 0.07 * Math.sin(t * 2 + seed);
     if (ref.current) ref.current.scale.set(scale, scale, scale);
   });
 
   return (
     <mesh ref={ref} position={position as any}>
-      <sphereGeometry args={[0.12, 32, 32]} />
-      <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.4} />
+      <sphereGeometry args={[0.09, 32, 32]} />
+      <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.35} />
     </mesh>
   );
 }
 
 // ===== Edge (thick line as cylinder) =====
-function Edge({ start, end }: EdgeProps) {
+function Edge({ start, end, thickness }: EdgeProps) {
   const meshRef = useRef<THREE.Mesh | null>(null);
 
   // compute once per start/end
@@ -40,7 +55,7 @@ function Edge({ start, end }: EdgeProps) {
     const s = new THREE.Vector3(...start);
     const e = new THREE.Vector3(...end);
     const dir = new THREE.Vector3().subVectors(e, s);
-    const length = dir.length();
+    const length = dir.length() || 0.0001;
 
     const midpoint = new THREE.Vector3().addVectors(s, e).multiplyScalar(0.5);
 
@@ -56,33 +71,42 @@ function Edge({ start, end }: EdgeProps) {
     if (!meshRef.current) return;
     meshRef.current.position.copy(mid);
     meshRef.current.setRotationFromQuaternion(quaternion);
-  }, [mid, quaternion, len]);
+  }, [mid, quaternion]);
 
   return (
     <group>
       {/* Cylinder centered at mid, height = len */}
       <mesh ref={(r) => (meshRef.current = r)}>
-        {/* cylinder along Y with height = len */}
-        <cylinderGeometry args={[0.06, 0.06, len, 20]} />
+        <cylinderGeometry args={[thickness, thickness, len, 20]} />
         <meshStandardMaterial color="#ffffff" />
       </mesh>
 
-      {/* spheres at ends */}
+      {/* spheres at ends (kept slightly larger so they visually join well) */}
       <mesh position={start as any}>
-        <sphereGeometry args={[0.12, 32, 32]} />
-        <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.4} />
+        <sphereGeometry args={[0.09, 32, 32]} />
+        <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.35} />
       </mesh>
 
       <mesh position={end as any}>
-        <sphereGeometry args={[0.12, 32, 32]} />
-        <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.4} />
+        <sphereGeometry args={[0.09, 32, 32]} />
+        <meshStandardMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.35} />
       </mesh>
     </group>
   );
 }
 
 // ===== Network component (group rotates slowly) =====
-function Network() {
+function Network({
+  nodeCount,
+  connectionProbability,
+  thickness,
+  seed,
+}: {
+  nodeCount: number;
+  connectionProbability: number;
+  thickness: number;
+  seed?: number;
+}) {
   const group = useRef<THREE.Group | null>(null);
 
   useFrame(() => {
@@ -92,35 +116,71 @@ function Network() {
     }
   });
 
-  // nodes: each node is connected to at least two others (so spheres are connection points)
-  const nodes: [number, number, number][] = [
-    [0, 0, 0],
-    [1.6, 0.9, -0.6],
-    [-1.2, 1.3, 0.9],
-    [2.0, -1.0, 0.6],
-    [-1.6, -1.1, -1.3],
-    [0.8, -0.8, 1.5],
-    [-0.8, 0.6, -1.4],
-  ];
+  const { nodes, edges } = useMemo(() => {
+    // PRNG
+    const rand = seed !== undefined ? mulberry32(seed) : Math.random;
 
-  // edges: index pairs (every cylinder connects two spheres)
-  const edges: [number, number][] = [
-    [0, 1],
-    [0, 2],
-    [0, 3],
-    [1, 3],
-    [2, 4],
-    [3, 5],
-    [4, 6],
-    [5, 6],
-    [1, 5],
-    [2, 6],
-  ];
+    // توليد مواقع عقد عشوائية داخل كرة بنصف قطر معين (radius)
+    const radius = 2.0;
+    const generatedNodes: [number, number, number][] = [];
+    for (let i = 0; i < nodeCount; i++) {
+      // توليد نقطة عشوائية داخل كرة (uniform-ish)
+      let x = (rand() * 2 - 1);
+      let y = (rand() * 2 - 1);
+      let z = (rand() * 2 - 1);
+      // normalize then scale by random radius factor
+      const v = new THREE.Vector3(x, y, z);
+      v.normalize().multiplyScalar(rand() * radius);
+      generatedNodes.push([v.x, v.y, v.z]);
+    }
+
+    // توليد وصلات بين الأزواج بناءاً على الاحتمال connectionProbability
+    const generatedEdges: [number, number][] = [];
+    for (let i = 0; i < nodeCount; i++) {
+      for (let j = i + 1; j < nodeCount; j++) {
+        if (rand() < connectionProbability) {
+          generatedEdges.push([i, j]);
+        }
+      }
+    }
+
+    // ضمان أن كل عقدة لها على الأقل وصلة واحدة: لو فيه معزولة نوصلها بأقرب عقدة
+    const adjacency = new Array(nodeCount).fill(0).map(() => []);
+    generatedEdges.forEach(([a, b]) => {
+      adjacency[a].push(b);
+      adjacency[b].push(a);
+    });
+
+    for (let i = 0; i < nodeCount; i++) {
+      if (adjacency[i].length === 0 && nodeCount > 1) {
+        // وصلها لأقرب عقدة
+        let nearest = -1;
+        let bestDist = Infinity;
+        const vi = new THREE.Vector3(...generatedNodes[i]);
+        for (let j = 0; j < nodeCount; j++) {
+          if (i === j) continue;
+          const vj = new THREE.Vector3(...generatedNodes[j]);
+          const d = vi.distanceTo(vj);
+          if (d < bestDist) {
+            bestDist = d;
+            nearest = j;
+          }
+        }
+        if (nearest >= 0) {
+          generatedEdges.push([i, nearest]);
+          adjacency[i].push(nearest);
+          adjacency[nearest].push(i);
+        }
+      }
+    }
+
+    return { nodes: generatedNodes, edges: generatedEdges };
+  }, [nodeCount, connectionProbability, seed]);
 
   return (
     <group ref={group as any}>
       {edges.map(([a, b], i) => (
-        <Edge key={i} start={nodes[a]} end={nodes[b]} />
+        <Edge key={i} start={nodes[a]} end={nodes[b]} thickness={thickness} />
       ))}
 
       {nodes.map((pos, i) => (
@@ -131,7 +191,13 @@ function Network() {
 }
 
 // ===== Page component =====
-export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
+export const BlockchainWelcome = ({
+  onComplete,
+  nodeCount = 8,
+  connectionProbability = 0.28,
+  thickness = 0.03,
+  seed,
+}: BlockchainWelcomeProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleContinue = () => {
@@ -149,7 +215,7 @@ export const BlockchainWelcome = ({ onComplete }: BlockchainWelcomeProps) => {
           <ambientLight intensity={0.45} />
           <pointLight position={[5, 5, 5]} intensity={1.2} />
           <pointLight position={[-5, -5, -5]} intensity={0.6} />
-          <Network />
+          <Network nodeCount={nodeCount} connectionProbability={connectionProbability} thickness={thickness} seed={seed} />
         </Canvas>
       </div>
 
