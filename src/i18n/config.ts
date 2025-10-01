@@ -49,7 +49,7 @@ const resources = {
       settings: "الإعدادات",
       social: "روابط التواصل",
       apps: {
-        mining: "التعدين",
+        mining: "النظام",
         deposit: "إيداع", 
         withdraw: "سحب",
         stQr: "ST QR",
