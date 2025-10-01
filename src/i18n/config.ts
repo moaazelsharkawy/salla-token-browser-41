@@ -12,7 +12,7 @@ const resources = {
       settings: "Settings",
       social: "Social Links",
       apps: {
-        mining: "Mining",
+        mining: "system",
         deposit: "Deposit", 
         withdraw: "Withdraw",
         stQr: "ST QR",
