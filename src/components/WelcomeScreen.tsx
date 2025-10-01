@@ -177,21 +177,21 @@ export const WelcomeScreen = ({ onComplete }: WelcomeScreenProps) => {
             ))}
           </div>
 
-          {/* Continue Button */}
-          {currentStep === steps.length - 1 && (
-            <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-10">
-              <Button
-                onClick={handleContinue}
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg"
-              >
-                <span className="mr-2">
-                  {i18n.language === 'ar' ? 'ابدأ الاستخدام' : 'Get Started'}
-                </span>
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </div>
-          )}
+          {/* Continue Button */}
+          {currentStep === steps.length - 1 && (
+            <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+              <Button
+                onClick={handleContinue}
+                size="lg"
+                className="bg-white text-primary hover:bg-white/90 font-semibold px-8 py-3 rounded-2xl transition-all duration-300 hover:scale-105 animate-in slide-in-from-bottom-4 duration-1000 delay-1000 shadow-lg"
+              >
+                <span className="mr-2">
+                  {i18n.language === 'ar' ? 'ابدأ الاستخدام' : 'Get Started'}
+                </span>
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

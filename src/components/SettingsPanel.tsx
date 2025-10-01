@@ -90,7 +90,7 @@ export function SettingsPanel() {
                 <Button
                   variant="outline"
                   className="w-full flex items-center gap-2 hover:scale-105 transition-all"
-                  onClick={login}
+                  onClick={() => window.open('https://sallanet.com', '_blank')}
                 >
                   <LogIn size={16} />
                   {i18n.language === 'ar' ? 'تسجيل الدخول ' : 'Login'}
