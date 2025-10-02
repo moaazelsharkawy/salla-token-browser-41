@@ -1,6 +1,7 @@
 {
-  "name": "Salla Network v2",
-  "short_name": "Salla Network v2",
+  "name": "Salla Network",
+  "short_name": "Salla Network",
+  "version": "2.0.0",
   "description": "أول عملة رقمية عربية مبنية على شبكة سولانا بلوك تشين، تستخدم في المدفوعات والتجارة الإلكترونية",
   "start_url": "/",
   "display": "standalone",
