@@ -299,23 +299,18 @@ export const BlockchainWelcome = ({
           {/* Icon Spinner Container */}
           <div className="w-24 h-24 mx-auto mb-3 relative">
             <div
-              className="absolute inset-0 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 animate-spin"
+              className="absolute inset-0 rounded-full bg-purple-600 animate-spin"
               style={{ animationDuration: '4s' }}
             />
-            <div className="absolute inset-1 bg-gradient-to-br from-purple-900/90 to-indigo-900/80 rounded-full backdrop-blur-lg border border-white/30" />
+            <div className="absolute inset-1 bg-purple-700 rounded-full backdrop-blur-lg border border-white/30" />
 
             <div className="relative w-full h-full p-2 flex items-center justify-center">
-              {/* Placeholder Coin/Block Icon (Inline SVG) */}
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="1.5" 
-                className="w-12 h-12 text-white drop-shadow-lg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 7.756l-3.375 2.155a1.25 1.25 0 00-.012 2.164l3.375 2.155M2.25 12c0-5.46 4.654-9.923 10.5-9.923 5.845 0 10.5 4.463 10.5 9.923s-4.654 9.924-10.5 9.924C6.904 21.924 2.25 17.46 2.25 12z" />
-              </svg>
+              {/* Currency Logo */}
+              <img 
+                src="/lovable-uploads/st-qr-icon.png" 
+                alt="Currency Logo"
+                className="w-14 h-14 object-contain drop-shadow-lg"
+              />
             </div>
           </div>
         </div>
