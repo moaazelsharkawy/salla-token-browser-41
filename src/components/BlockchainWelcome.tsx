@@ -236,7 +236,7 @@ const Network = ({
   return (
     <group ref={group}>
       {/* Subtle particle fog */}
-      <ParticleField count={200} />
+      <ParticleField count={120} />
 
       {/* Edges with dynamic shimmering */}
       {edges.map(([a, b], i) => (
@@ -258,9 +258,9 @@ const Network = ({
 /* ---------------- Main App Component ---------------- */
 export const BlockchainWelcome = ({
   onComplete,
-  nodeCount = 18,
-  connectionProbability = 0.35,
-  thickness = 0.025,
+  nodeCount = 12,
+  connectionProbability = 0.25,
+  thickness = 0.02,
   seed = 42,
 }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -307,8 +307,8 @@ export const BlockchainWelcome = ({
             <div className="relative w-full h-full p-2 flex items-center justify-center">
               {/* Currency Logo */}
               <img 
-                src="/lovable-uploads/st-qr-icon.png" 
-                alt="Currency Logo"
+                src="/lovable-uploads/salla-coin-logo.png" 
+                alt="Salla Token Logo"
                 className="w-14 h-14 object-contain drop-shadow-lg"
               />
             </div>
