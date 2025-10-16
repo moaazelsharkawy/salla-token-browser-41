@@ -10,16 +10,22 @@ const CallbackPage = () => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('jwt');
 
+    console.log('🔐 Callback page - JWT token:', token ? 'received' : 'missing');
+    console.log('🔗 Full URL:', window.location.href);
+
     if (token) {
+      console.log('💾 Saving token to localStorage');
       // 2. تخزين التوكن بشكل آمن في التخزين المحلي
       localStorage.setItem('userToken', token);
       
       // 3. إزالة التوكن من الرابط لأغراض أمنية
       window.history.replaceState({}, document.title, window.location.pathname);
 
+      console.log('✅ Token saved, redirecting to home');
       // 4. توجيه المستخدم إلى الصفحة الرئيسية
       navigate('/');
     } else {
+      console.log('⚠️ No token in URL, redirecting to home');
       // إذا لم يكن هناك توكن، توجيه إلى الصفحة الرئيسية
       navigate('/');
     }

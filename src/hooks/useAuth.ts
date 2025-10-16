@@ -16,41 +16,51 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const checkAuthStatus = async () => {
-    setIsLoading(true);
-    const token = localStorage.getItem('userToken');
+  const checkAuthStatus = async () => {
+    setIsLoading(true);
+    const token = localStorage.getItem('userToken');
+    
+    console.log('🔍 Checking auth status');
+    console.log('📦 Token exists:', !!token);
+    console.log('🔑 API Key exists:', !!API_KEY);
 
-    if (token) {
-      try {
-        const response = await fetch('https://sallanet.com/wp-json/auth/v1/user', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            // 🔑 استخدام المتغير هنا
-            'X-API-Key': API_KEY, 
-            'Content-Type': 'application/json',
-          }
-        });
+    if (token) {
+      try {
+        console.log('📡 Sending request to WordPress API...');
+        const response = await fetch('https://sallanet.com/wp-json/auth/v1/user', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'X-API-Key': API_KEY, 
+            'Content-Type': 'application/json',
+          }
+        });
 
-        if (!response.ok) {
-          throw new Error('Unauthorized');
-        }
+        console.log('📥 Response status:', response.status);
 
-        const data = await response.json();
-        setUser(data);
-        setIsAuthenticated(true);
-      } catch (error) {
-        console.error('Auth Error:', error);
-        localStorage.removeItem('userToken');
-        setUser(null);
-        setIsAuthenticated(false);
-      }
-    } else {
-      setUser(null);
-      setIsAuthenticated(false);
-    }
-    
-    setIsLoading(false);
-  };
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('❌ API Error:', response.status, errorText);
+          throw new Error('Unauthorized');
+        }
+
+        const data = await response.json();
+        console.log('✅ User data received:', data);
+        setUser(data);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error('❌ Auth Error:', error);
+        localStorage.removeItem('userToken');
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+    } else {
+      console.log('⚠️ No token found in localStorage');
+      setUser(null);
+      setIsAuthenticated(false);
+    }
+    
+    setIsLoading(false);
+  };
 
   const login = async (username: string, password: string) => {
     try {
