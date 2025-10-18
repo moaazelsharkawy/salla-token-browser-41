@@ -4,17 +4,20 @@ import { AppGrid } from '@/components/AppGrid';
 import { SettingsPanel } from '@/components/SettingsPanel';
 import { ShareButton } from '@/components/ShareButton';
 import { PWAInstallPrompt } from '@/components/PWAInstallPrompt';
+import { NotificationPrompt } from '@/components/NotificationPrompt';
 import { WelcomeScreen } from '@/components/WelcomeScreen';
 import { BlockchainWelcome } from '@/components/BlockchainWelcome';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { SearchBar } from '@/components/SearchBar';
 import { PriceTracker } from '@/components/PriceTracker';
 import { usePWA } from '@/hooks/usePWA';
+import { useOneSignal } from '@/hooks/useOneSignal';
 import { useLoading } from '@/hooks/useLoading';
 
 const Index = () => {
   const { t, i18n } = useTranslation();
   const { showInstallPrompt, installApp, dismissPrompt, isInstalled } = usePWA();
+  const { showPrompt: showNotificationPrompt, requestPermission, dismissPrompt: dismissNotificationPrompt } = useOneSignal();
   const { isLoading, handleExternalLink } = useLoading();
   const [welcomeStep, setWelcomeStep] = useState(() => {
     // Check if this is a fresh app opening (not a reload)
@@ -119,6 +122,14 @@ const Index = () => {
         <PWAInstallPrompt 
           onInstall={installApp}
           onDismiss={dismissPrompt}
+        />
+      )}
+
+      {/* Notification Prompt */}
+      {showNotificationPrompt && (
+        <NotificationPrompt 
+          onAccept={requestPermission}
+          onDismiss={dismissNotificationPrompt}
         />
       )}
 
