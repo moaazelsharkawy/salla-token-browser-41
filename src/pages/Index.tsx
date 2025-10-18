@@ -130,6 +130,7 @@ const Index = () => {
         <NotificationPrompt 
           onAccept={requestPermission}
           onDismiss={dismissNotificationPrompt}
+          isLoading={false}
         />
       )}
 

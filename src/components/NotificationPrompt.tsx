@@ -5,11 +5,22 @@ import { Card } from '@/components/ui/card';
 interface NotificationPromptProps {
   onAccept: () => void;
   onDismiss: () => void;
+  isLoading?: boolean;
 }
 
-export const NotificationPrompt = ({ onAccept, onDismiss }: NotificationPromptProps) => {
+export const NotificationPrompt = ({ onAccept, onDismiss, isLoading = false }: NotificationPromptProps) => {
+  const handleAccept = () => {
+    console.log('👆 User clicked Accept button');
+    onAccept();
+  };
+
+  const handleDismiss = () => {
+    console.log('👆 User clicked Dismiss button');
+    onDismiss();
+  };
+
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-50 animate-in slide-in-from-bottom-2">
+    <div className="fixed bottom-20 left-4 right-4 z-50 animate-in slide-in-from-bottom-2">
       <Card className="p-4 bg-background/95 backdrop-blur-sm border-primary/20 shadow-lg">
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg">
@@ -27,16 +38,18 @@ export const NotificationPrompt = ({ onAccept, onDismiss }: NotificationPromptPr
             <div className="flex gap-2">
               <Button 
                 size="sm" 
-                onClick={onAccept}
+                onClick={handleAccept}
+                disabled={isLoading}
                 className="flex-1 h-8 text-xs"
               >
                 <Bell className="w-3 h-3 ml-1" />
-                السماح
+                {isLoading ? 'جاري التفعيل...' : 'السماح'}
               </Button>
               <Button 
                 variant="ghost" 
                 size="sm" 
-                onClick={onDismiss}
+                onClick={handleDismiss}
+                disabled={isLoading}
                 className="px-3 h-8 text-xs"
               >
                 لاحقاً
@@ -44,7 +57,8 @@ export const NotificationPrompt = ({ onAccept, onDismiss }: NotificationPromptPr
               <Button 
                 variant="ghost" 
                 size="sm" 
-                onClick={onDismiss}
+                onClick={handleDismiss}
+                disabled={isLoading}
                 className="px-2 h-8"
               >
                 <X className="w-3 h-3" />
