@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface PiPriceData {
@@ -102,21 +102,11 @@ export const PriceTracker = () => {
     return numPrice.toFixed(6);
   };
 
-  const getPriceChangeIcon = (change: string) => {
-    const changeNum = parseFloat(change);
-    if (changeNum > 0) {
-      return <TrendingUp className="w-3 h-3 text-green-500" />;
-    } else if (changeNum < 0) {
-      return <TrendingDown className="w-3 h-3 text-red-500" />;
-    }
-    return null;
-  };
-
-  const getPriceChangeColor = (change: string) => {
+  const getPriceColor = (change: string) => {
     const changeNum = parseFloat(change);
     if (changeNum > 0) return 'text-green-500';
     if (changeNum < 0) return 'text-red-500';
-    return 'text-muted-foreground';
+    return 'text-foreground';
   };
 
   return (
@@ -158,12 +148,11 @@ export const PriceTracker = () => {
                 </div>
               ) : stPrice ? (
                 <>
-                  <div className="text-sm font-bold text-foreground">
+                  <div className={`text-sm font-bold ${stPrice.change24h ? getPriceColor(stPrice.change24h) : 'text-foreground'}`}>
                     ${formatPrice(stPrice.estimated_price)}
                   </div>
-                  <div className={`flex items-center gap-1 text-xs ${stPrice.change24h ? getPriceChangeColor(stPrice.change24h) : 'text-muted-foreground'}`}>
-                    {stPrice.change24h && getPriceChangeIcon(stPrice.change24h)}
-                    <span>{t('prices.estimated')} {stPrice.change24h && `${stPrice.change24h}%`}</span>
+                  <div className="text-xs text-muted-foreground">
+                    <span>{t('prices.estimated')}</span>
                   </div>
                 </>
               ) : (
@@ -190,12 +179,11 @@ export const PriceTracker = () => {
                 </div>
               ) : piPrice ? (
                 <>
-                  <div className="text-sm font-bold text-foreground">
+                  <div className={`text-sm font-bold ${getPriceColor(piPrice.change24h)}`}>
                     ${formatPrice(piPrice.price)}
                   </div>
-                  <div className={`flex items-center gap-1 text-xs ${getPriceChangeColor(piPrice.change24h)}`}>
-                    {getPriceChangeIcon(piPrice.change24h)}
-                    <span>{piPrice.change24h}%</span>
+                  <div className="text-xs text-muted-foreground">
+                    <span>24h</span>
                   </div>
                 </>
               ) : (
