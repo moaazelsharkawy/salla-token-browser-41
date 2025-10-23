@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, Globe, Flame } from 'lucide-react';
+import { Search, Globe, Flame, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
@@ -115,6 +115,11 @@ export const SearchBar = () => {
     window.open(googleSearchUrl, '_blank');
   };
 
+  const handleClearHistory = () => {
+    setRecentSearches([]);
+    localStorage.removeItem('recent-searches');
+  };
+
   return (
     <div className="w-full px-4 py-3 bg-gradient-to-r from-background/50 to-muted/20 border-b border-border/50 backdrop-blur-sm relative z-50">
       <div ref={searchRef} className="relative max-w-2xl mx-auto">
@@ -191,6 +196,19 @@ export const SearchBar = () => {
                         <span className="text-sm">{search}</span>
                       </CommandItem>
                     ))}
+                    
+                    {/* Clear History Button */}
+                    <div className="px-2 py-2 mt-2">
+                      <Button
+                        onClick={handleClearHistory}
+                        variant="outline"
+                        size="sm"
+                        className="w-full flex items-center justify-center gap-2 bg-destructive/10 hover:bg-destructive/20 border-destructive/30 text-destructive hover:text-destructive transition-all duration-300 group"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+                        <span className="text-xs font-medium">محو السجل</span>
+                      </Button>
+                    </div>
                   </CommandGroup>
                 )}
               </CommandList>
