@@ -120,7 +120,7 @@ export const PriceTracker = () => {
   };
 
   return (
-    <div className="w-full px-4 py-3 bg-gradient-to-r from-background/30 to-muted/10 border-b border-border/30">
+    <div className="w-full px-4 py-3 bg-gradient-to-r from-background/30 to-muted/10 border-b border-border/30 relative z-10">
       <div className="max-w-2xl mx-auto">
         {/* Header with refresh button */}
         <div className="flex items-center justify-between mb-2">

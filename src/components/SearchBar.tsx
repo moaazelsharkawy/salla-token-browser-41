@@ -116,7 +116,7 @@ export const SearchBar = () => {
   };
 
   return (
-    <div className="w-full px-4 py-3 bg-gradient-to-r from-background/50 to-muted/20 border-b border-border/50 backdrop-blur-sm">
+    <div className="w-full px-4 py-3 bg-gradient-to-r from-background/50 to-muted/20 border-b border-border/50 backdrop-blur-sm relative z-50">
       <div ref={searchRef} className="relative max-w-2xl mx-auto">
         <form onSubmit={handleSearch}>
           <div className="relative group">
