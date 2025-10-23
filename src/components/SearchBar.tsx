@@ -163,7 +163,7 @@ export const SearchBar = () => {
 
         {/* Suggestions Dropdown */}
         {showSuggestions && (
-          <div className="absolute w-full mt-2 z-50">
+          <div className="absolute w-full mt-2 z-[9999]">
             <Command className="rounded-2xl border border-border/50 shadow-xl bg-background/95 backdrop-blur-md">
               <CommandList>
                 <CommandGroup heading="روابط مقترحة">
