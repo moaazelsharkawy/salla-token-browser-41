@@ -21,9 +21,13 @@ export function useLoading(): UseLoadingReturn {
   }, []);
 
   const handleExternalLink = useCallback(async (url: string) => {
+    // Show spinner immediately when icon is clicked
     startLoading();
     
     try {
+      // Keep spinner visible for minimum time for smooth UX
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 800));
+      
       // التحقق من وجود Capacitor والتطبيق المحلي
       if (Capacitor.isNativePlatform()) {
         // استخدام متصفح Chrome المضمن في التطبيق المحلي
@@ -36,12 +40,15 @@ export function useLoading(): UseLoadingReturn {
         // في حالة المتصفح العادي، استخدم النافذة الجديدة
         window.open(url, '_blank');
       }
+      
+      // Wait for minimum loading time to complete
+      await minLoadingTime;
     } catch (error) {
       // في حالة فشل المتصفح المضمن، استخدم المتصفح العادي
       window.open(url, '_blank');
     } finally {
-      // إيقاف التحميل
-      setTimeout(stopLoading, 500);
+      // Add small delay before hiding spinner for smooth transition
+      setTimeout(stopLoading, 200);
     }
   }, [startLoading, stopLoading]);
 
