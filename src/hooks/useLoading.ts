@@ -25,8 +25,8 @@ export function useLoading(): UseLoadingReturn {
     startLoading();
     
     try {
-      // Keep spinner visible for minimum time for smooth UX
-      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 800));
+      // Keep spinner visible for minimum time for smooth UX (2 seconds)
+      const minLoadingTime = new Promise(resolve => setTimeout(resolve, 2000));
       
       // التحقق من وجود Capacitor والتطبيق المحلي
       if (Capacitor.isNativePlatform()) {
