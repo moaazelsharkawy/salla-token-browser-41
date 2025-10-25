@@ -36,6 +36,12 @@ const resources = {
         livePrices: "Live Prices",
         estimated: "Estimated",
         lastUpdated: "Last updated"
+      },
+      presale: {
+        title: "First Round Presale Available Now!",
+        description: "Reserve your tokens at an exclusive price. Don't miss this limited opportunity!",
+        button: "Join Presale",
+        close: "Close",
       }
     }
   },
@@ -73,6 +79,12 @@ const resources = {
         livePrices: "الأسعار المباشرة",
         estimated: "مقدر",
         lastUpdated: "آخر تحديث"
+      },
+      presale: {
+        title: "الجولة الأولى للبيع المسبق متاحة الآن!",
+        description: "قم بحجز كميتك من العملات بسعر مميز. لا تفوت هذه الفرصة المحدودة!",
+        button: "الدخول للبيع المسبق",
+        close: "إغلاق",
       }
     }
   }

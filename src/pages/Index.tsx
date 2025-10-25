@@ -9,6 +9,7 @@ import { BlockchainWelcome } from '@/components/BlockchainWelcome';
 import { LoadingSpinner } from '@/components/LoadingSpinner';
 import { SearchBar } from '@/components/SearchBar';
 import { PriceTracker } from '@/components/PriceTracker';
+import { PresaleAnnouncement } from '@/components/PresaleAnnouncement';
 import { usePWA } from '@/hooks/usePWA';
 import { useLoading } from '@/hooks/useLoading';
 
@@ -124,6 +125,9 @@ const Index = () => {
 
       {/* Loading Spinner */}
       <LoadingSpinner isVisible={isLoading} />
+
+      {/* Presale Announcement - Shows only on first visit */}
+      <PresaleAnnouncement />
     </div>
   );
 };
