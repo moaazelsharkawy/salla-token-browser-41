@@ -20,6 +20,8 @@ export function SettingsPanel() {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+    // Save language preference to localStorage
+    localStorage.setItem('app-language', lng);
   };
 
   const XIcon = () => (

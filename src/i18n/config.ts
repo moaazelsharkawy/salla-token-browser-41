@@ -90,11 +90,14 @@ const resources = {
   }
 };
 
+// Get saved language from localStorage or default to Arabic
+const savedLanguage = localStorage.getItem('app-language') || 'ar';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'ar', // Default to Arabic
+    lng: savedLanguage, // Use saved language or default to Arabic
     fallbackLng: 'en',
     interpolation: {
       escapeValue: true // Enable XSS prevention by default
