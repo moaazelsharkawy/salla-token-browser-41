@@ -17,8 +17,8 @@ export const PresaleAnnouncement = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Check if announcement has been shown before
-    const hasBeenShown = localStorage.getItem(PRESALE_SHOWN_KEY);
+    // Check if announcement has been shown in this session
+    const hasBeenShown = sessionStorage.getItem(PRESALE_SHOWN_KEY);
     
     if (!hasBeenShown) {
       // Show after a short delay for better UX
@@ -32,7 +32,7 @@ export const PresaleAnnouncement = () => {
 
   const handleClose = () => {
     setOpen(false);
-    localStorage.setItem(PRESALE_SHOWN_KEY, 'true');
+    sessionStorage.setItem(PRESALE_SHOWN_KEY, 'true');
   };
 
   const handlePresaleClick = () => {
