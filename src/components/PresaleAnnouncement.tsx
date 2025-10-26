@@ -44,13 +44,13 @@ export const PresaleAnnouncement = () => {
     }
   }, []);
 
-  // Auto-rotate announcements every 3 seconds
+  // Auto-rotate announcements every 7 seconds
   useEffect(() => {
     if (!open) return;
     
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % announcements.length);
-    }, 3000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [open]);
