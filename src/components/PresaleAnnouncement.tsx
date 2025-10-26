@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { X, Sparkles, Rocket, TrendingUp } from 'lucide-react';
+import { X, Sparkles, Rocket, TrendingUp, Store, Gift } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -11,10 +11,24 @@ import { useLoading } from '@/hooks/useLoading';
 
 const PRESALE_SHOWN_KEY = 'salla-presale-announcement-shown';
 
+const announcements = [
+  {
+    key: 'presale',
+    link: 'https://sallanet.com/st-presale',
+    icons: [Rocket, Sparkles, TrendingUp]
+  },
+  {
+    key: 'shop',
+    link: 'https://salla-shop.com/eg',
+    icons: [Store, Gift, Sparkles]
+  }
+];
+
 export const PresaleAnnouncement = () => {
   const { t } = useTranslation();
   const { handleExternalLink } = useLoading();
   const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     // Check if announcement has been shown in this session
@@ -30,15 +44,29 @@ export const PresaleAnnouncement = () => {
     }
   }, []);
 
+  // Auto-rotate announcements every 3 seconds
+  useEffect(() => {
+    if (!open) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % announcements.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [open]);
+
   const handleClose = () => {
     setOpen(false);
     sessionStorage.setItem(PRESALE_SHOWN_KEY, 'true');
   };
 
-  const handlePresaleClick = () => {
+  const handleAnnouncementClick = () => {
     handleClose();
-    handleExternalLink('https://sallanet.com/st-presale');
+    handleExternalLink(announcements[currentIndex].link);
   };
+
+  const currentAnnouncement = announcements[currentIndex];
+  const [Icon1, Icon2, Icon3] = currentAnnouncement.icons;
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
@@ -61,27 +89,26 @@ export const PresaleAnnouncement = () => {
         {/* Content */}
         <div className="relative z-10 p-8 space-y-6">
           {/* Icon badges */}
-          <div className="flex justify-center gap-3">
+          <div className="flex justify-center gap-3 transition-all duration-500">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center animate-bounce">
-              <Rocket className="w-6 h-6 text-primary-foreground" />
+              <Icon1 className="w-6 h-6 text-primary-foreground" />
             </div>
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-secondary to-secondary/50 flex items-center justify-center animate-bounce" style={{ animationDelay: '0.1s' }}>
-              <Sparkles className="w-6 h-6 text-secondary-foreground" />
+              <Icon2 className="w-6 h-6 text-secondary-foreground" />
             </div>
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center animate-bounce" style={{ animationDelay: '0.2s' }}>
-              <TrendingUp className="w-6 h-6 text-primary-foreground" />
+              <Icon3 className="w-6 h-6 text-primary-foreground" />
             </div>
           </div>
 
-          {/* Title */}
-          <div className="text-center space-y-3">
+          {/* Title and Description with smooth transition */}
+          <div className="text-center space-y-3 transition-all duration-500">
             <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent animate-fade-in">
-              {t('presale.title')}
+              {t(`${currentAnnouncement.key}.title`)}
             </h2>
             
-            {/* Description */}
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              {t('presale.description')}
+              {t(`${currentAnnouncement.key}.description`)}
             </p>
           </div>
 
@@ -94,17 +121,31 @@ export const PresaleAnnouncement = () => {
 
           {/* CTA Button */}
           <Button
-            onClick={handlePresaleClick}
+            onClick={handleAnnouncementClick}
             className="w-full h-14 text-lg font-bold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 animate-fade-in"
             style={{ animationDelay: '0.2s' }}
           >
-            <Rocket className="w-5 h-5 mr-2" />
-            {t('presale.button')}
+            <Icon1 className="w-5 h-5 mr-2" />
+            {t(`${currentAnnouncement.key}.button`)}
           </Button>
+
+          {/* Carousel indicators */}
+          <div className="flex justify-center gap-2">
+            {announcements.map((_, index) => (
+              <div
+                key={index}
+                className={`h-1.5 rounded-full transition-all duration-500 ${
+                  index === currentIndex 
+                    ? 'bg-primary w-8' 
+                    : 'bg-muted-foreground/30 w-1.5'
+                }`}
+              />
+            ))}
+          </div>
 
           {/* Subtle footer text */}
           <p className="text-center text-xs text-muted-foreground/60 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            ✨ {t('presale.close')} {t('presale.button').toLowerCase()}
+            ✨ {t(`${currentAnnouncement.key}.close`)} {t(`${currentAnnouncement.key}.button`).toLowerCase()}
           </p>
         </div>
       </DialogContent>

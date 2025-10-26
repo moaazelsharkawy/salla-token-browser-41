@@ -42,6 +42,12 @@ const resources = {
         description: "Reserve your tokens at an exclusive price. Don't miss this limited opportunity!",
         button: "Join Presale",
         close: "Close",
+      },
+      shop: {
+        title: "Coming Soon: Egypt Local Mall Launch",
+        description: "Get ready to join as an approved merchant with us!",
+        button: "Join as Merchant",
+        close: "Close",
       }
     }
   },
@@ -84,6 +90,12 @@ const resources = {
         title: "الجولة الأولى للبيع المسبق متاحة الآن!",
         description: "قم بحجز كميتك من العملات بسعر مميز. لا تفوت هذه الفرصة المحدودة!",
         button: "الدخول للبيع المسبق",
+        close: "إغلاق",
+      },
+      shop: {
+        title: "قريباً انطلاق مول مصر المحلي",
+        description: "استعد للانضمام كتاجر معتمد لدينا!",
+        button: "الانضمام كتاجر",
         close: "إغلاق",
       }
     }
