@@ -11,6 +11,7 @@ const resources = {
       darkMode: "Dark Mode",
       settings: "Settings",
       social: "Social Links",
+      yourAccount: "Your Account",
       apps: {
         mining: "system",
         deposit: "Deposit", 
@@ -60,6 +61,7 @@ const resources = {
       darkMode: "الوضع المظلم", 
       settings: "الإعدادات",
       social: "روابط التواصل",
+      yourAccount: "حسابك",
       apps: {
         mining: "النظام",
         deposit: "إيداع", 

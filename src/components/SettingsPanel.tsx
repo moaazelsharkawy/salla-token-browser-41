@@ -95,7 +95,7 @@ export function SettingsPanel() {
                   onClick={() => window.open('https://sallanet.com', '_blank')}
                 >
                   <LogIn size={16} />
-                  {i18n.language === 'ar' ? 'تسجيل الدخول ' : 'Login'}
+                  {t('yourAccount')}
                 </Button>
               )}
             </div>
