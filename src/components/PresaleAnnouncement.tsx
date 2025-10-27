@@ -11,24 +11,16 @@ import { useLoading } from '@/hooks/useLoading';
 
 const PRESALE_SHOWN_KEY = 'salla-presale-announcement-shown';
 
-const announcements = [
-  {
-    key: 'presale',
-    link: 'https://sallanet.com/st-presale',
-    icons: [Rocket, Sparkles, TrendingUp]
-  },
-  {
-    key: 'shop',
-    link: 'https://salla-shop.com/eg',
-    icons: [Store, Gift, Sparkles]
-  }
-];
+const announcement = {
+  key: 'shop',
+  link: 'https://salla-shop.com/eg',
+  icons: [Store, Gift, Sparkles]
+};
 
 export const PresaleAnnouncement = () => {
   const { t } = useTranslation();
   const { handleExternalLink } = useLoading();
   const [open, setOpen] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     // Check if announcement has been shown in this session
@@ -44,16 +36,6 @@ export const PresaleAnnouncement = () => {
     }
   }, []);
 
-  // Auto-rotate announcements every 7 seconds
-  useEffect(() => {
-    if (!open) return;
-    
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % announcements.length);
-    }, 7000);
-
-    return () => clearInterval(interval);
-  }, [open]);
 
   const handleClose = () => {
     setOpen(false);
@@ -62,11 +44,10 @@ export const PresaleAnnouncement = () => {
 
   const handleAnnouncementClick = () => {
     handleClose();
-    handleExternalLink(announcements[currentIndex].link);
+    handleExternalLink(announcement.link);
   };
 
-  const currentAnnouncement = announcements[currentIndex];
-  const [Icon1, Icon2, Icon3] = currentAnnouncement.icons;
+  const [Icon1, Icon2, Icon3] = announcement.icons;
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
@@ -104,11 +85,11 @@ export const PresaleAnnouncement = () => {
           {/* Title and Description with smooth transition */}
           <div className="text-center space-y-3 transition-all duration-500">
             <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent animate-fade-in">
-              {t(`${currentAnnouncement.key}.title`)}
+              {t(`${announcement.key}.title`)}
             </h2>
             
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              {t(`${currentAnnouncement.key}.description`)}
+              {t(`${announcement.key}.description`)}
             </p>
           </div>
 
@@ -126,26 +107,12 @@ export const PresaleAnnouncement = () => {
             style={{ animationDelay: '0.2s' }}
           >
             <Icon1 className="w-5 h-5 mr-2" />
-            {t(`${currentAnnouncement.key}.button`)}
+            {t(`${announcement.key}.button`)}
           </Button>
-
-          {/* Carousel indicators */}
-          <div className="flex justify-center gap-2">
-            {announcements.map((_, index) => (
-              <div
-                key={index}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
-                  index === currentIndex 
-                    ? 'bg-primary w-8' 
-                    : 'bg-muted-foreground/30 w-1.5'
-                }`}
-              />
-            ))}
-          </div>
 
           {/* Subtle footer text */}
           <p className="text-center text-xs text-muted-foreground/60 animate-fade-in" style={{ animationDelay: '0.3s' }}>
-            ✨ {t(`${currentAnnouncement.key}.close`)} {t(`${currentAnnouncement.key}.button`).toLowerCase()}
+            ✨ {t(`${announcement.key}.close`)} {t(`${announcement.key}.button`).toLowerCase()}
           </p>
         </div>
       </DialogContent>
