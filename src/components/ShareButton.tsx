@@ -44,7 +44,7 @@ export const ShareButton = () => {
   return (
     <div className="flex flex-col gap-3 pb-8 pt-4 px-4">
       <Button
-        onClick={() => handleExternalLink('https://sallanet.com/apps')}
+        onClick={() => handleExternalLink('https://apps.sallanet.com')}
         variant="default"
         size="lg"
         className="w-full flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 hover:scale-105 active:scale-95"
