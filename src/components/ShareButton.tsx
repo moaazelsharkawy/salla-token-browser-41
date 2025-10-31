@@ -1,11 +1,13 @@
-import { Share2, Copy } from 'lucide-react';
+import { Share2, Copy, AppWindow } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslation } from 'react-i18next';
+import { useLoading } from '@/hooks/useLoading';
 
 export const ShareButton = () => {
   const { toast } = useToast();
   const { t, i18n } = useTranslation();
+  const { handleExternalLink } = useLoading();
 
   const shareData = {
     title: 'Salla Token Network - أول عملة رقمية عربية على شبكة سولانا - First Arabic Cryptocurrency on Solana',
@@ -40,12 +42,24 @@ export const ShareButton = () => {
   };
 
   return (
-    <div className="flex justify-center pb-8 pt-4">
+    <div className="flex flex-col gap-3 pb-8 pt-4 px-4">
+      <Button
+        onClick={() => handleExternalLink('https://sallanet.com/apps')}
+        variant="default"
+        size="lg"
+        className="w-full flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 transition-all duration-300 hover:scale-105 active:scale-95"
+      >
+        <AppWindow className="w-5 h-5" />
+        <span className="font-semibold">
+          {t('userApps')}
+        </span>
+      </Button>
+      
       <Button
         onClick={handleShare}
         variant="outline"
         size="lg"
-        className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/20 hover:to-secondary/20 border-primary/30 hover:border-primary/50 transition-all duration-300 hover:scale-105 active:scale-95"
+        className="w-full flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 hover:from-primary/20 hover:to-secondary/20 border-primary/30 hover:border-primary/50 transition-all duration-300 hover:scale-105 active:scale-95"
       >
         {navigator.share ? (
           <Share2 className="w-5 h-5 text-primary" />

@@ -12,6 +12,7 @@ const resources = {
       settings: "Settings",
       social: "Social Links",
       yourAccount: "Your Account",
+      userApps: "User Applications",
       apps: {
         mining: "system",
         deposit: "Deposit", 
@@ -62,6 +63,7 @@ const resources = {
       settings: "الإعدادات",
       social: "روابط التواصل",
       yourAccount: "حسابك",
+      userApps: "تطبيقات المستخدمين",
       apps: {
         mining: "النظام",
         deposit: "إيداع", 
